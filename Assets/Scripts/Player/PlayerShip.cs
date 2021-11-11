@@ -3,16 +3,56 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour
 {
-    public const float startDelay = 1;
+    [Header("Movement properties")]
+    public float startDelay = 1;
     public float turnRateDegreesSecond = 60;
     public float maxTurnAngle = 90;
     public float maxAngleSineSpeed = 1;
-    
+
+    [Header("Health and invincibility")]
+    [Range(1, 20)]
+    public int health = 6; // 2 health = 1 heart, to avoid float usage here
+    public float invincibilityDuration = 1f;
+    public float invincibilityBlinkFrequency = 3;
+
     private bool start = false;
     private bool turningUp = false;
     private float currentRotation = 0;
+    
+    private bool isInvincible = false;
+    private float remainingInvincibility;
+    private int invincibilityBlinkDelayMs;
 
-    private void AdjustAngle()
+    private SpriteRenderer spriteRenderer;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2)) * 1000;
+    }
+
+    void TriggerInvincible()
+    {
+        remainingInvincibility = invincibilityDuration;
+        isInvincible = true;
+    }
+    
+    void CheckGameOver()
+    {
+        if (health <= 0)
+        {
+            // TODO endgame handling
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        Impactable obj = other.gameObject.GetComponent<Impactable>();
+        health -= obj.collisionDamage;
+        CheckGameOver();
+        TriggerInvincible();
+    }
+
+    void AdjustAngle()
     {
         if(!start)
             return;
@@ -22,7 +62,7 @@ public class PlayerShip : MonoBehaviour
 
         var finalAngle = transform.eulerAngles + Vector3.forward * turnAngle;
 
-        if (Math.Abs(currentRotation + turnAngle) >= maxTurnAngle)
+        if (Mathf.Abs(currentRotation + turnAngle) >= maxTurnAngle)
         {
             currentRotation = turnDir * maxTurnAngle;
             finalAngle = Vector3.forward * currentRotation;
@@ -35,13 +75,33 @@ public class PlayerShip : MonoBehaviour
         transform.eulerAngles = finalAngle;
     }
 
-    private void AdjustPos()
+    void AdjustPos()
     {
         var currentPos = transform.position;
         currentPos.y += maxAngleSineSpeed * (currentRotation / maxTurnAngle);
         transform.position = currentPos;
     }
-    private void FixedUpdate()
+
+    void InvincibilityEffect()
+    {
+        if (!isInvincible)
+            return;
+
+        remainingInvincibility -= Time.deltaTime;
+        
+        if (remainingInvincibility <= 0)
+        {
+            isInvincible = false;
+            spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            return;
+        }
+
+        int elapsedMs = (int) (invincibilityDuration - remainingInvincibility) * 1000;
+        float transparency = (elapsedMs % invincibilityBlinkDelayMs) == (elapsedMs % (invincibilityBlinkDelayMs * 2)) ? 1f : 0.5f;
+        spriteRenderer.color = new Color(1f, 1f, 1f, transparency);
+
+    }
+    void FixedUpdate()
     {
         AdjustAngle();
         AdjustPos();
@@ -57,10 +117,12 @@ public class PlayerShip : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
             turningUp = !turningUp;
+        
+        InvincibilityEffect();
 
     }
 
-    private void OnBecameInvisible()
+    void OnBecameInvisible()
     {
         Destroy(this);
         Application.Quit();
