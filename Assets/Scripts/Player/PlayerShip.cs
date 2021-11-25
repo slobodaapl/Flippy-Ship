@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerShip : MonoBehaviour
 {
@@ -17,13 +18,15 @@ public class PlayerShip : MonoBehaviour
 
     private bool start = false;
     private bool turningUp = false;
-    private float currentRotation = 0;
-    
+    private float posYOffset;
+    private float angleOffset;
+
     private bool isInvincible = false;
     private float remainingInvincibility;
     private int invincibilityBlinkDelayMs;
 
     private SpriteRenderer spriteRenderer;
+    private int debug = 0;
 
     void Start()
     {
@@ -52,35 +55,33 @@ public class PlayerShip : MonoBehaviour
         TriggerInvincible();
     }
 
+    private static float ClampAngle(float unadjusted)
+    {
+        return unadjusted > 180 ? unadjusted - 360 : unadjusted;
+    }
     void AdjustAngle()
     {
-        if(!start)
-            return;
-        
+        var currentRotation = transform.eulerAngles;
         var turnDir = turningUp ? 1 : -1;
         var turnAngle = turnRateDegreesSecond * Time.fixedDeltaTime * turnDir;
-
-        var finalAngle = transform.eulerAngles + Vector3.forward * turnAngle;
-
-        if (Mathf.Abs(currentRotation + turnAngle) >= maxTurnAngle)
-        {
-            currentRotation = turnDir * maxTurnAngle;
-            finalAngle = Vector3.forward * currentRotation;
-        }
-        else
-        {
-            currentRotation += turnAngle;
-        }
+        angleOffset += turnAngle;
         
-        transform.eulerAngles = finalAngle;
+        var currentAngle = ClampAngle(Vector3.Dot(currentRotation, Vector3.forward));
+
+        if (Mathf.Abs(currentAngle + angleOffset) >= maxTurnAngle)
+            angleOffset = Mathf.Sign(currentAngle) * maxTurnAngle - currentAngle;
+        
     }
 
     void AdjustPos()
     {
-        var currentPos = transform.position;
-        currentPos.y += maxAngleSineSpeed * (currentRotation / maxTurnAngle);
-        transform.position = currentPos;
+        var angle = ClampAngle(Vector3.Dot(Vector3.forward, transform.eulerAngles));
+        posYOffset += Time.fixedDeltaTime * maxAngleSineSpeed * (angle / maxTurnAngle);
     }
+    
+    private bool MouseOverUIElement =>
+        EventSystem.current.currentSelectedGameObject != null &&
+        EventSystem.current.currentSelectedGameObject.layer == LayerMask.NameToLayer("UI");
 
     void InvincibilityEffect()
     {
@@ -103,8 +104,20 @@ public class PlayerShip : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if(!start)
+            return;
+        
         AdjustAngle();
         AdjustPos();
+    }
+
+    void TransformPlayer()
+    {
+        transform.Translate(0, posYOffset, 0, Space.World);
+        transform.Rotate(angleOffset * Vector3.forward);
+
+        posYOffset = 0;
+        angleOffset = 0;
     }
 
     void Update()
@@ -115,16 +128,22 @@ public class PlayerShip : MonoBehaviour
         if (!start)
             start = true;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            turningUp = !turningUp;
-        
+        TransformPlayer();
+
+        if (!PauseController.IsPaused)
+        {
+            if (Input.GetMouseButtonDown(0))
+                if (!MouseOverUIElement)
+                    turningUp = !turningUp;
+        }
+
         InvincibilityEffect();
 
     }
 
     void OnBecameInvisible()
     {
-        Destroy(this);
-        Application.Quit();
+        //Debug.Log("Now invisible");
+        //Destroy(this);
     }
 }

@@ -12,7 +12,7 @@ public class Impactable : MonoBehaviour
         Destroy(this);
     }
 
-    void Update()
+    private void Update()
     {
         Vector3 pos = transform.position;
         
