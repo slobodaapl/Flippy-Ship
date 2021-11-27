@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Impactable : MonoBehaviour
+public class Impactable<T> : MonoBehaviour where T : Spawnable<T>
 {
     public int collisionDamage = 1;
+    private T spawnable;
 
+    void Start()
+    {
+        spawnable = Spawnable<T>.Instance;
+    }
     private void OnBecameInvisible()
     {
-        Destroy(this);
-    }
-
-    private void Update()
-    {
-        Vector3 pos = transform.position;
-        
+        spawnable.UpdateConstraints(gameObject);
+        Destroy(gameObject);
     }
 }

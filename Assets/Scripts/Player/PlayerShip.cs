@@ -49,10 +49,10 @@ public class PlayerShip : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        Impactable obj = other.gameObject.GetComponent<Impactable>();
-        health -= obj.collisionDamage;
-        CheckGameOver();
-        TriggerInvincible();
+        // Impactable obj = other.gameObject.GetComponent<Impactable>();
+        // health -= obj.collisionDamage;
+        // CheckGameOver();
+        // TriggerInvincible();
     }
 
     private static float ClampAngle(float unadjusted)
@@ -144,6 +144,6 @@ public class PlayerShip : MonoBehaviour
     void OnBecameInvisible()
     {
         //Debug.Log("Now invisible");
-        //Destroy(this);
+        //Destroy(gameObject);
     }
 }

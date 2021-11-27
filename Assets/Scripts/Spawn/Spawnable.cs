@@ -6,6 +6,7 @@ public abstract class Spawnable<T> where T : Spawnable<T>
 {
     public List<GameObject> Patterns;
 
+    // XRange is left to right, YRange is top to bottom
     private (float, float) XRange { get; set; }
     private (float, float) YRange { get; set; }
 
@@ -13,7 +14,7 @@ public abstract class Spawnable<T> where T : Spawnable<T>
         new Lazy<T>(() => Activator.CreateInstance(typeof(T), true) as T);
 
     public static T Instance => Lazy.Value;
-
+    
     public GameObject SpawnChoice(List<GameObject> filteredPrefabs)
     {
         return filteredPrefabs.PickRandom();
@@ -27,6 +28,6 @@ public abstract class Spawnable<T> where T : Spawnable<T>
     }
     public abstract bool CheckConstraints();
     public abstract List<GameObject> GetSpawnable(List<GameObject> prefabs);
-
-
+    public abstract void UpdateConstraints(GameObject obj);
+    
 }
