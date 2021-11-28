@@ -26,20 +26,25 @@ public class PlayerShip : MonoBehaviour
     private int invincibilityBlinkDelayMs;
 
     private SpriteRenderer spriteRenderer;
-    private int debug = 0;
+    private Rigidbody2D rgbd;
+    //private int debug = 0;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2)) * 1000;
+        rgbd = GetComponent<Rigidbody2D>();
+        invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2) * 1000);
     }
 
     void TriggerInvincible()
     {
+        if(isInvincible)
+            return;
+        
         remainingInvincibility = invincibilityDuration;
         isInvincible = true;
     }
-    
+
     void CheckGameOver()
     {
         if (health <= 0)
@@ -47,48 +52,27 @@ public class PlayerShip : MonoBehaviour
             // TODO endgame handling
         }
     }
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        // Impactable obj = other.gameObject.GetComponent<Impactable>();
-        // health -= obj.collisionDamage;
-        // CheckGameOver();
-        // TriggerInvincible();
+        Debug.Log("Hit.");
+        var impactableComponent = other.gameObject.GetComponent<GenericMine>();
+        health -= isInvincible ? 0 : impactableComponent.GetDamage();
+        impactableComponent.EnactCollission();
+        CheckGameOver();
+        TriggerInvincible();
     }
 
     private static float ClampAngle(float unadjusted)
     {
         return unadjusted > 180 ? unadjusted - 360 : unadjusted;
     }
-    void AdjustAngle()
-    {
-        var currentRotation = transform.eulerAngles;
-        var turnDir = turningUp ? 1 : -1;
-        var turnAngle = turnRateDegreesSecond * Time.fixedDeltaTime * turnDir;
-        angleOffset += turnAngle;
-        
-        var currentAngle = ClampAngle(Vector3.Dot(currentRotation, Vector3.forward));
-
-        if (Mathf.Abs(currentAngle + angleOffset) >= maxTurnAngle)
-            angleOffset = Mathf.Sign(currentAngle) * maxTurnAngle - currentAngle;
-        
-    }
-
-    void AdjustPos()
-    {
-        var angle = ClampAngle(Vector3.Dot(Vector3.forward, transform.eulerAngles));
-        posYOffset += Time.fixedDeltaTime * maxAngleSineSpeed * (angle / maxTurnAngle);
-    }
-    
-    private bool MouseOverUIElement =>
-        EventSystem.current.currentSelectedGameObject != null &&
-        EventSystem.current.currentSelectedGameObject.layer == LayerMask.NameToLayer("UI");
 
     void InvincibilityEffect()
     {
         if (!isInvincible)
             return;
 
-        remainingInvincibility -= Time.deltaTime;
+        remainingInvincibility -= Time.fixedDeltaTime;
         
         if (remainingInvincibility <= 0)
         {
@@ -97,11 +81,39 @@ public class PlayerShip : MonoBehaviour
             return;
         }
 
-        int elapsedMs = (int) (invincibilityDuration - remainingInvincibility) * 1000;
+        int elapsedMs = (int) ((invincibilityDuration - remainingInvincibility) * 1000);
         float transparency = (elapsedMs % invincibilityBlinkDelayMs) == (elapsedMs % (invincibilityBlinkDelayMs * 2)) ? 1f : 0.5f;
         spriteRenderer.color = new Color(1f, 1f, 1f, transparency);
 
     }
+    
+    void AdjustAngle()
+    {
+        var currentRotation = ClampAngle(rgbd.rotation);
+        var turnDir = turningUp ? 1 : -1;
+        var turnAngle = turnRateDegreesSecond * Time.fixedDeltaTime * turnDir;
+
+        if (Mathf.Abs(currentRotation + turnAngle) >= maxTurnAngle)
+        {
+            rgbd.MoveRotation(Mathf.Sign(currentRotation) * maxTurnAngle);
+            return;
+        }
+        
+        rgbd.MoveRotation(turnAngle + currentRotation);
+    }
+    
+    void AdjustPos()
+    {
+        var angle = ClampAngle(rgbd.rotation);
+        var newOffset = Time.fixedDeltaTime * maxAngleSineSpeed * (angle / maxTurnAngle);
+        
+        rgbd.MovePosition(rgbd.position + new Vector2(0, newOffset));
+    }
+    
+    private bool MouseOverUIElement =>
+        EventSystem.current.currentSelectedGameObject != null &&
+        EventSystem.current.currentSelectedGameObject.layer == LayerMask.NameToLayer("UI");
+    
     void FixedUpdate()
     {
         if(!start)
@@ -109,15 +121,8 @@ public class PlayerShip : MonoBehaviour
         
         AdjustAngle();
         AdjustPos();
-    }
-
-    void TransformPlayer()
-    {
-        transform.Translate(0, posYOffset, 0, Space.World);
-        transform.Rotate(angleOffset * Vector3.forward);
-
-        posYOffset = 0;
-        angleOffset = 0;
+        
+        InvincibilityEffect();
     }
 
     void Update()
@@ -128,16 +133,12 @@ public class PlayerShip : MonoBehaviour
         if (!start)
             start = true;
 
-        TransformPlayer();
-
         if (!PauseController.IsPaused)
         {
             if (Input.GetMouseButtonDown(0))
                 if (!MouseOverUIElement)
                     turningUp = !turningUp;
         }
-
-        InvincibilityEffect();
 
     }
 

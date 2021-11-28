@@ -1,9 +1,9 @@
-﻿
-public class DarkMine : Impactable<MineSpawnable>
-{
+﻿using UnityEngine;
 
-    void Update()
+public class DarkMine : GenericMine
+{
+    void FixedUpdate()
     {
-        // Custom movement code
+        rgbd.MovePosition(rgbd.position + new Vector2(-Time.fixedDeltaTime * defaultUnitSpeed * TimeTracker.GetMoveMultiplier(), 0));
     }
 }

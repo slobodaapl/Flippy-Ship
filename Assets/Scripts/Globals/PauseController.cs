@@ -6,7 +6,8 @@ public class PauseController : MonoBehaviour
 {
     public static bool IsPaused = false;
     public GameObject PauseMenu;
-    
+    // TODO: Fix pause with ESC
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

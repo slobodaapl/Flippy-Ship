@@ -20,6 +20,7 @@ public sealed class MineSpawnable : Spawnable<MineSpawnable>
 
     public override void UpdateConstraints(GameObject obj)
     {
-        CurrentMines -= obj.transform.childCount;
+        var children = obj.transform.childCount;
+        CurrentMines -= children == 0 ? 1 : children;
     }
 }

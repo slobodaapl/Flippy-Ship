@@ -2,17 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class Impactable<T> : MonoBehaviour where T : Spawnable<T>
 {
     public int collisionDamage = 1;
-    private T spawnable;
+    public float defaultUnitSpeed = 1;
 
-    void Start()
+    protected T spawnable;
+    protected Rigidbody2D rgbd;
+
+    protected void Start()
     {
         spawnable = Spawnable<T>.Instance;
+        rgbd = GetComponent<Rigidbody2D>();
     }
-    private void OnBecameInvisible()
+    protected void OnBecameInvisible()
     {
         spawnable.UpdateConstraints(gameObject);
         Destroy(gameObject);

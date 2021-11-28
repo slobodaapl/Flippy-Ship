@@ -64,4 +64,9 @@ public static class TimeTracker
         EnemyMineTicker = Mathf.Clamp(1 + 1 * (-Time.time / 150), min, 1);
         return true;
     }
+
+    public static float GetMoveMultiplier()
+    {
+        return 1 + Mathf.Log10(Mathf.Sqrt(Time.time + 1)) / 4;
+    }
 }
