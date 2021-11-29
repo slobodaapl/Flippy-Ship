@@ -1,5 +1,5 @@
 ﻿
-public class WhiteMine : GenericMine
+public class WhiteMine : SpawnableImpactable<MineSpawnable>
 {
 
 }

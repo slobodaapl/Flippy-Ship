@@ -1,17 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Object = UnityEngine.Object;
+﻿using UnityEngine;
 
-public class Impactable<T> : MonoBehaviour where T : Spawnable<T>
+public class Impactable : MonoBehaviour
 {
     public int collisionDamage = 1;
     public float defaultUnitSpeed = 1;
-
-    protected T spawnable;
+    
     protected Rigidbody2D rgbd;
+    
+    public int GetDamage()
+    {
+        return collisionDamage;
+    }
 
+    public void DestroyOnCollission()
+    {
+        Destroy(gameObject);
+    }
+    
+}
+
+public class Impactable<T> : Impactable where T : Spawnable<T>
+{
+    protected T spawnable;
+    
     protected void Start()
     {
         spawnable = Spawnable<T>.Instance;
@@ -19,7 +30,11 @@ public class Impactable<T> : MonoBehaviour where T : Spawnable<T>
     }
     protected void OnBecameInvisible()
     {
-        spawnable.UpdateConstraints(gameObject);
         Destroy(gameObject);
+    }
+
+    protected void OnDestroy()
+    {
+        spawnable.UpdateConstraints(gameObject);
     }
 }

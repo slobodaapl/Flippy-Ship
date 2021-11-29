@@ -55,9 +55,9 @@ public class PlayerShip : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Hit.");
-        var impactableComponent = other.gameObject.GetComponent<GenericMine>();
+        var impactableComponent = other.gameObject.GetComponent<Impactable>();
         health -= isInvincible ? 0 : impactableComponent.GetDamage();
-        impactableComponent.EnactCollission();
+        impactableComponent.DestroyOnCollission();
         CheckGameOver();
         TriggerInvincible();
     }
