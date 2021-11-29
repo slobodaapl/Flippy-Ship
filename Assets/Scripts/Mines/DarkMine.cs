@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DarkMine : SpawnableImpactable<MineSpawnable>
+public class DarkMine : Impactable<MineSpawnable>
 {
     void FixedUpdate()
     {
