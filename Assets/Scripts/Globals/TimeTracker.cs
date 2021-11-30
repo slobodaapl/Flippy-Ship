@@ -29,7 +29,7 @@ public static class TimeTracker
         EnemyShipTicker = cooldown;
     }
     
-    public static bool TickPillar(float min)
+    public static bool TickPillar(float min=0.75f)
     {
         var dur = GetUpdateDelta();
 
@@ -38,7 +38,7 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickDebris(float min)
+    public static bool TickDebris(float min=1.0f)
     {
         var dur = GetUpdateDelta();
 
@@ -47,7 +47,7 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickEnemyShip(float min)
+    public static bool TickEnemyShip(float min=2.5f)
     {
         var dur = GetUpdateDelta();
 
@@ -56,12 +56,12 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickEnemyMine(float min)
+    public static bool TickEnemyMine(float min=1)
     {
         var dur = GetUpdateDelta();
 
         if (!(EnemyMineTicker <= 0)) return false;
-        EnemyMineTicker = Mathf.Clamp(1 + 1 * (-Time.time / 150), min, 1);
+        EnemyMineTicker = Mathf.Clamp(1.5f + 1 * (-Time.time / 150), min, 1.5f);
         return true;
     }
 

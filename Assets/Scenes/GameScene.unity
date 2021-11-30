@@ -458,9 +458,9 @@ GameObject:
   m_Component:
   - component: {fileID: 380482564}
   - component: {fileID: 380482563}
-  - component: {fileID: 380482562}
   - component: {fileID: 380482561}
   - component: {fileID: 380482565}
+  - component: {fileID: 380482562}
   m_Layer: 0
   m_Name: darkmine
   m_TagString: Mine

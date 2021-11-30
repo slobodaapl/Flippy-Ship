@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Spawnable<T> where T : Spawnable<T>
+public abstract class Spawnable<T> : Spawnable where T : Spawnable<T>
 {
     public List<GameObject> Patterns;
 
@@ -30,4 +30,11 @@ public abstract class Spawnable<T> where T : Spawnable<T>
     public abstract List<GameObject> GetSpawnable(List<GameObject> prefabs);
     public abstract void UpdateConstraints(GameObject obj);
     
+}
+
+public abstract class Spawnable
+{
+    public float lastspawn;
+    
+    public abstract bool IsSpawnable();
 }

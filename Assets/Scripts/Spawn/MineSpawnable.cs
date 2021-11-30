@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine;
 public sealed class MineSpawnable : Spawnable<MineSpawnable>
 {
     public const int MaxMines = 5;
-    public int CurrentMines = 0;
+    public int CurrentMines;
 
     public override bool CheckConstraints()
     {
@@ -22,5 +21,10 @@ public sealed class MineSpawnable : Spawnable<MineSpawnable>
     {
         var children = obj.transform.childCount;
         CurrentMines -= children == 0 ? 1 : children;
+    }
+    
+    public override bool IsSpawnable()
+    {
+        return TimeTracker.TickEnemyMine();
     }
 }
