@@ -32,7 +32,7 @@ public abstract class Spawnable<T> : Spawnable where T : Spawnable<T>
     
 }
 
-public abstract class Spawnable
+public abstract class Spawnable : MonoBehaviour
 {
     public float lastspawn;
     
