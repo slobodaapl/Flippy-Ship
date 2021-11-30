@@ -1,40 +1,61 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class Spawnable<T> : Spawnable where T : Spawnable<T>
 {
-    public List<GameObject> Patterns;
-
-    // XRange is left to right, YRange is top to bottom
-    private (float, float) XRange { get; set; }
-    private (float, float) YRange { get; set; }
-
     private static readonly Lazy<T> Lazy =
         new Lazy<T>(() => Activator.CreateInstance(typeof(T), true) as T);
 
     public static T Instance => Lazy.Value;
     
-    public GameObject SpawnChoice(List<GameObject> filteredPrefabs)
+    protected GameObject SpawnChoice(List<GameObject> filteredPrefabs)
     {
         return filteredPrefabs.PickRandom();
     }
-
-    public void InitValues((float, float) xrange, (float, float) yrange, List<GameObject> patterns)
-    {
-        Patterns = patterns;
-        XRange = xrange;
-        YRange = yrange;
-    }
+    
     public abstract bool CheckConstraints();
-    public abstract List<GameObject> GetSpawnable(List<GameObject> prefabs);
     public abstract void UpdateConstraints(GameObject obj);
     
 }
 
 public abstract class Spawnable : MonoBehaviour
 {
-    public float lastspawn;
+    public GameObject topLeftSpawnMarker;
+    public GameObject bottomRightSpawnMarker;
+    public List<GameObject> patterns;
     
+    // XRange is left to right, YRange is top to bottom
+    protected (float, float) xRange;
+    protected (float, float) yRange;
+    protected bool initialized;
+
+    protected float xSpawnCoord;
+    protected float ySpawnCoord;
+
     public abstract bool IsSpawnable();
+    public abstract void SpawnInstantiate();
+
+    public virtual void Spawn()
+    {
+        if (!IsSpawnable()) return;
+        if (!initialized) InitValues();
+        
+        xSpawnCoord = Random.Range(xRange.Item1, xRange.Item2);
+        ySpawnCoord = Random.Range(yRange.Item1, yRange.Item2);
+
+        SpawnInstantiate();
+    }
+    
+    protected void InitValues()
+    {
+        var postopleft = topLeftSpawnMarker.transform.position;
+        var posbottomright = bottomRightSpawnMarker.transform.position;
+
+        xRange = (postopleft.x, posbottomright.x);
+        yRange = (posbottomright.y, postopleft.y);
+        initialized = true;
+    }
+    
 }

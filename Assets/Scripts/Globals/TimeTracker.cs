@@ -2,6 +2,9 @@
 
 public static class TimeTracker
 {
+    // This file's existence is purely optional, I could include all these methods in the Spawnable classes
+    // but I chose to move the implementation here to make the game easier to balance and optimize from one place
+    
     private static float PillarTicker;
     private static float DebrisTicker;
     private static float EnemyShipTicker;
@@ -15,13 +18,11 @@ public static class TimeTracker
         EnemyMineTicker -= dur;
     }
 
-    private static float GetUpdateDelta()
+    private static void GetUpdateDelta()
     {
         var dur = Time.time - LastTimeStamp;
         LastTimeStamp = Time.time;
         TickAll(dur);
-        
-        return dur;
     }
 
     public static void CooldownShip(float cooldown)
@@ -31,7 +32,7 @@ public static class TimeTracker
     
     public static bool TickPillar(float min=0.75f)
     {
-        var dur = GetUpdateDelta();
+        GetUpdateDelta();
 
         if (!(PillarTicker <= 0)) return false;
         PillarTicker = Mathf.Clamp(2 + 2 * (-Time.time / 300), min, 2);
@@ -40,7 +41,7 @@ public static class TimeTracker
 
     public static bool TickDebris(float min=1.0f)
     {
-        var dur = GetUpdateDelta();
+        GetUpdateDelta();
 
         if (!(DebrisTicker <= 0)) return false;
         DebrisTicker = Mathf.Clamp(6 + 6 * (-Time.time / 600), min, 6);
@@ -49,7 +50,7 @@ public static class TimeTracker
 
     public static bool TickEnemyShip(float min=2.5f)
     {
-        var dur = GetUpdateDelta();
+        GetUpdateDelta();
 
         if (!(EnemyShipTicker <= 0)) return false;
         EnemyShipTicker = Mathf.Clamp(10 + 10 * (-Time.time / 600), min, 10);
@@ -58,7 +59,7 @@ public static class TimeTracker
 
     public static bool TickEnemyMine(float min=1)
     {
-        var dur = GetUpdateDelta();
+        GetUpdateDelta();
 
         if (!(EnemyMineTicker <= 0)) return false;
         EnemyMineTicker = Mathf.Clamp(1.5f + 1 * (-Time.time / 150), min, 1.5f);

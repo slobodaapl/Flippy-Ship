@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 391216239348093001}
   - component: {fileID: 6217017885128984219}
   m_Layer: 0
-  m_Name: single-minepattern
+  m_Name: single-whitemine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

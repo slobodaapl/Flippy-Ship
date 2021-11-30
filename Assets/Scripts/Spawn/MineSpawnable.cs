@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -12,9 +11,12 @@ public sealed class MineSpawnable : Spawnable<MineSpawnable>
         return CurrentMines <= MaxMines;
     }
 
-    public override List<GameObject> GetSpawnable(List<GameObject> prefabs)
+    public override void SpawnInstantiate()
     {
-        return prefabs.Where(x => x.transform.childCount <= (MaxMines - CurrentMines)).ToList();
+        var valid_patterns = patterns.Where(x => x.transform.childCount <= (MaxMines - CurrentMines)).ToList();
+        var selected_pattern = SpawnChoice(valid_patterns);
+
+        Instantiate(selected_pattern, new Vector3(xSpawnCoord, ySpawnCoord, 0), new Quaternion());
     }
 
     public override void UpdateConstraints(GameObject obj)
