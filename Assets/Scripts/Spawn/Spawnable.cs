@@ -5,10 +5,22 @@ using Random = UnityEngine.Random;
 
 public abstract class Spawnable<T> : Spawnable where T : Spawnable<T>
 {
-    private static readonly Lazy<T> Lazy =
-        new Lazy<T>(() => Activator.CreateInstance(typeof(T), true) as T);
+    private static Lazy<T> Lazy;
 
     public static T Instance => Lazy.Value;
+
+    void Start()
+    {
+        Lazy = new Lazy<T>(() => GetComponent<T>());
+    }
+    
+    // The below is the original code.. It would create a 'new Monobehavior' which is illegal. The above works
+    // but needs testing, unsure if it works correctly.
+    
+    // private static readonly Lazy<T> Lazy =
+    //     new Lazy<T>(() => Activator.CreateInstance(typeof(T), true) as T);
+    //
+    // public static T Instance => Lazy.Value;
     
     protected GameObject SpawnChoice(List<GameObject> filteredPrefabs)
     {
