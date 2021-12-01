@@ -23,7 +23,7 @@ public class Impactable<T> : Impactable where T : Spawnable<T>
 {
     protected T spawnable;
     
-    protected void Start()
+    protected void Awake()
     {
         spawnable = Spawnable<T>.Instance;
         rgbd = GetComponent<Rigidbody2D>();

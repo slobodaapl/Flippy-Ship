@@ -9,7 +9,7 @@ public abstract class Spawnable<T> : Spawnable where T : Spawnable<T>
 
     public static T Instance => Lazy.Value;
 
-    void Start()
+    void Awake()
     {
         Lazy = new Lazy<T>(() => GetComponent<T>());
     }
