@@ -135,4 +135,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionDamage: 1
-  defaultUnitSpeed: 4.3
+  defaultUnitSpeed: 4.7

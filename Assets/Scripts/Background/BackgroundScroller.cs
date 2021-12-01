@@ -29,7 +29,7 @@ public class BackgroundScroller : MonoBehaviour
     }
 
     void Update () {
-        float x = Mathf.Repeat (Time.time * scrollSpeed, 1);
+        float x = Mathf.Repeat (Time.time * scrollSpeed * TimeTracker.GetMoveMultiplier(), 1);
         Vector2 offset = new Vector2 (x, 0);
         texRenderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
     }

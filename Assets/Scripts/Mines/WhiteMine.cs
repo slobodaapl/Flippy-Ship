@@ -25,6 +25,6 @@ public class WhiteMine : Impactable<MineSpawnable>
     protected void FixedUpdate()
     {
         var y = Mathf.Sin(Time.time * oscillationSpeedMultiplier + (offsetable ? offset : fixedOffset)) * oscillationRangeMultiplier;
-        rgbd.MovePosition(new Vector2(rgbd.position.x - Time.fixedDeltaTime * defaultUnitSpeed * TimeTracker.GetMoveMultiplier(), initialY+y));
+        rgbd.MovePosition(new Vector2(rgbd.position.x - Time.fixedDeltaTime * defaultUnitSpeed, initialY+y));
     }
 }
