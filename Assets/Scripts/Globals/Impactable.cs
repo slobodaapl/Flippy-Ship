@@ -30,11 +30,11 @@ public class Impactable<T> : Impactable where T : Spawnable<T>
     }
     protected void OnBecameInvisible()
     {
+        Shootable comp = GetComponent<Shootable>();
+        if (comp != null)
+            GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShooter>().DestroyCallback(gameObject);
+        
         Destroy(gameObject);
-    }
-
-    protected void OnDestroy()
-    {
         spawnable.UpdateConstraints(gameObject);
     }
 }

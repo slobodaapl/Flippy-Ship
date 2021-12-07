@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 2003042630991175756}
   - component: {fileID: 4014903415392376002}
   - component: {fileID: 1769461740496448903}
+  - component: {fileID: -1491852359591964248}
   m_Layer: 0
   m_Name: snake-whitemine
   m_TagString: Untagged
@@ -295,3 +296,16 @@ MonoBehaviour:
   oscillationRangeMultiplier: 1.5
   offsetable: 0
   minePrefab: {fileID: 4927147737107046736, guid: a7ed4314b7cec6b42a988c9a5b31e45f, type: 3}
+--- !u!114 &-1491852359591964248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7493114311717324625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aace40a5637bd3b40968829f74f27812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1

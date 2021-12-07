@@ -26,10 +26,7 @@ public abstract class Spawnable<T> : Spawnable where T : Spawnable<T>
     {
         return filteredPrefabs.PickRandom();
     }
-    
-    public abstract bool CheckConstraints();
-    public abstract void UpdateConstraints(GameObject obj);
-    
+
 }
 
 public abstract class Spawnable : MonoBehaviour
@@ -46,8 +43,22 @@ public abstract class Spawnable : MonoBehaviour
     protected float xSpawnCoord;
     protected float ySpawnCoord;
 
+    private PlayerShooter playerShooter;
+
     public abstract bool IsSpawnable();
     public abstract void SpawnInstantiate();
+    public abstract bool CheckConstraints();
+    public abstract void UpdateConstraints(GameObject obj);
+
+    void Start()
+    {
+        playerShooter = GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShooter>();
+    }
+    
+    void OnDestroy()
+    {
+        UpdateConstraints(gameObject);
+    }
 
     public virtual void Spawn()
     {

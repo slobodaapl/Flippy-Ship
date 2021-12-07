@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,6 +27,7 @@ public class PlayerShip : MonoBehaviour
     private int invincibilityBlinkDelayMs;
 
     private SpriteRenderer spriteRenderer;
+    private PlayerShooter playerShooter;
     private Rigidbody2D rgbd;
     //private int debug = 0;
 
@@ -34,6 +36,7 @@ public class PlayerShip : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rgbd = GetComponent<Rigidbody2D>();
         invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2) * 1000);
+        playerShooter = GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShooter>();
     }
 
     void TriggerInvincible()
@@ -54,7 +57,9 @@ public class PlayerShip : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Hit.");
+        if (isInvincible)
+            return;
+        
         var impactableComponent = other.gameObject.GetComponent<Impactable>();
         health -= isInvincible ? 0 : impactableComponent.GetDamage();
         impactableComponent.DestroyOnCollission();

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 88614959011695581}
   - component: {fileID: 88614959011695577}
   - component: {fileID: 88614959011695582}
+  - component: {fileID: -7235002619126445233}
   m_Layer: 0
   m_Name: single-darkmine
   m_TagString: Mine
@@ -136,3 +137,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionDamage: 1
   defaultUnitSpeed: 4.7
+--- !u!114 &-7235002619126445233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88614959011695580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aace40a5637bd3b40968829f74f27812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1

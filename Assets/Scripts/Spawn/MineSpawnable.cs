@@ -3,7 +3,7 @@ using UnityEngine;
 
 public sealed class MineSpawnable : Spawnable<MineSpawnable>
 {
-    private const int maxMines = 5;
+    public int maxMines = 5;
     private int currentMines;
 
     public override bool CheckConstraints()
