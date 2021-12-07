@@ -16,6 +16,7 @@ public static class TimeTracker
         PillarTicker -= dur;
         EnemyShipTicker -= dur;
         EnemyMineTicker -= dur;
+        DebrisTicker -= dur;
     }
 
     private static void GetUpdateDelta()
@@ -44,7 +45,7 @@ public static class TimeTracker
         GetUpdateDelta();
 
         if (!(DebrisTicker <= 0)) return false;
-        DebrisTicker = Mathf.Clamp(6 + 6 * (-Time.time / 600), min, 6);
+        DebrisTicker = Mathf.Clamp(6 + 5 * (-Time.time / 600), min, 6);
         return true;
     }
 
