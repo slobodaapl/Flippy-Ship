@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class Wall : Impactable<WallSpawnable>
 {
-    private void OnBecameVisible()
+    private static bool cleaned;
+    
+    private void ClearInvis()
     {
+        cleaned = true;
         var parent = transform.parent;
 
         if (parent != null)
@@ -14,12 +17,14 @@ public class Wall : Impactable<WallSpawnable>
             foreach (Transform child in parent.transform)
                 if (child.CompareTag("Wall"))
                     if (!child.GetComponent<Renderer>().isVisible)
-                        Destroy(child);
+                        Destroy(child.gameObject);
         }
     }
 
     void FixedUpdate()
     {
-        rgbd.MovePosition(rgbd.position + new Vector2(-Time.fixedDeltaTime * defaultUnitSpeed * TimeTracker.GetMoveMultiplier(), 0));
+        var pos = rgbd.position;
+        //if (pos.x <= 0 && !cleaned) ClearInvis();
+        rgbd.MovePosition(pos + new Vector2(-Time.fixedDeltaTime * defaultUnitSpeed * TimeTracker.GetMoveMultiplier(), 0));
     }
 }

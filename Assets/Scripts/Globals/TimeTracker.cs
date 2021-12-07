@@ -30,12 +30,12 @@ public static class TimeTracker
         EnemyShipTicker = cooldown;
     }
     
-    public static bool TickPillar(float min=0.75f)
+    public static bool TickPillar(float min=1)
     {
         GetUpdateDelta();
 
         if (!(PillarTicker <= 0)) return false;
-        PillarTicker = Mathf.Clamp(2 + 2 * (-Time.time / 300), min, 2);
+        PillarTicker = Mathf.Clamp(2 + 1 * (-Time.time / 300), min, 2);
         return true;
     }
 
@@ -57,12 +57,12 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickEnemyMine(float min=1)
+    public static bool TickEnemyMine(float min=3)
     {
         GetUpdateDelta();
 
         if (!(EnemyMineTicker <= 0)) return false;
-        EnemyMineTicker = Mathf.Clamp(1.5f + 1 * (-Time.time / 150), min, 1.5f);
+        EnemyMineTicker = Mathf.Clamp(6 + 3 * (-Time.time / 150), min, 6);
         return true;
     }
 

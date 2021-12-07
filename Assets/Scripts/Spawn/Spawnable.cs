@@ -60,15 +60,16 @@ public abstract class Spawnable : MonoBehaviour
         UpdateConstraints(gameObject);
     }
 
-    public virtual void Spawn()
+    public virtual bool Spawn()
     {
-        if (!IsSpawnable()) return;
+        if (!IsSpawnable()) return false;
         if (!initialized) InitValues();
         
         xSpawnCoord = Random.Range(xRange.Item1, xRange.Item2);
         ySpawnCoord = Random.Range(yRange.Item1, yRange.Item2);
 
         SpawnInstantiate();
+        return true;
     }
     
     protected void InitValues()

@@ -23,7 +23,6 @@ public class WallSpawnable : Spawnable<WallSpawnable>
     public override void UpdateConstraints(GameObject obj)
     {
         // No constraints needed
-        return;
     }
 
 }

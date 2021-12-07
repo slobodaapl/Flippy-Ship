@@ -4,6 +4,7 @@ public class Impactable : MonoBehaviour
 {
     public int collisionDamage = 1;
     public float defaultUnitSpeed = 1;
+    public bool isDestroyedOnImpact = true;
     
     protected Rigidbody2D rgbd;
     
@@ -14,7 +15,8 @@ public class Impactable : MonoBehaviour
 
     public void DestroyOnCollission()
     {
-        Destroy(gameObject);
+        if (isDestroyedOnImpact)
+            Destroy(gameObject);
     }
     
 }

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public float globalSpawnCooldown = 1;
+        
     private List<Spawnable> spawners;
+    private float globalCurrentCooldown;
 
     void Start()
     {
@@ -35,6 +38,20 @@ public class Spawner : MonoBehaviour
     
     void FixedUpdate()
     {
-        spawners.ForEach(item => item.Spawn());
+        if (globalCurrentCooldown > 0)
+        {
+            globalCurrentCooldown -= Time.fixedDeltaTime;
+            return;
+        }
+
+        var spawnable = spawners.Where(x => x.isActiveAndEnabled).Shuffle().ToList();
+        foreach (var spawnableinst in spawnable)
+        {
+            if (spawnableinst.Spawn())
+            {
+                globalCurrentCooldown = globalSpawnCooldown;
+                return;
+            }
+        }
     }
 }
