@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.U2D;
+using UnityEngine.EventSystems;
 
 public class RayController : MonoBehaviour
 {
     public Camera myCam;
-    private RaycastHit2D hit;
+    private RaycastHit2D[] hit;
+    
+    private bool MouseOverUIElement =>
+        EventSystem.current.currentSelectedGameObject != null &&
+        EventSystem.current.currentSelectedGameObject.layer == LayerMask.NameToLayer("UI");
 
     void Start()
     {
@@ -18,13 +23,24 @@ public class RayController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray point = myCam.ScreenPointToRay(Input.mousePosition);
-            
-            hit = Physics2D.Raycast(point.origin, point.direction);
-
-            if(hit.collider != null)
+            bool gotHit = false;
+            hit = Physics2D.RaycastAll(point.origin, point.direction);
+            var hitList = hit.Where(x => x.transform.name != "Ship").ToList();
+            if(hitList.Count != 0)
             {
-                Debug.Log(hit.transform.name);
+                foreach (var obj in hitList)
+                {
+                    var debris = obj.transform.gameObject.GetComponent<PhysicalDebris>();
+                    if (debris != null)
+                    {
+                        debris.ClickDamage();
+                        gotHit = true;
+                    }
+                }
             }
+
+            if (!gotHit && !MouseOverUIElement)
+                PlayerShip.SwitchDirection();
         }
     }
 }

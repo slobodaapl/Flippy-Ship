@@ -50,14 +50,14 @@ TagManager:
   - name: Obstacles
     uniqueID: 404833593
     locked: 0
-  - name: Enemies
-    uniqueID: 3997939927
+  - name: Mines and Projectiles
+    uniqueID: 334014245
     locked: 0
   - name: Player
     uniqueID: 2551632233
     locked: 0
-  - name: Mines and Projectiles
-    uniqueID: 334014245
+  - name: Enemies
+    uniqueID: 3997939927
     locked: 0
   - name: Player Projectile
     uniqueID: 2826584979

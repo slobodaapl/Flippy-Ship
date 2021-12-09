@@ -34,6 +34,8 @@ public abstract class Spawnable : MonoBehaviour
     public GameObject topLeftSpawnMarker;
     public GameObject bottomRightSpawnMarker;
     public List<GameObject> patterns;
+
+    public bool horizontalSpawn;
     
     // XRange is left to right, YRange is top to bottom
     protected (float, float) xRange;
@@ -43,7 +45,7 @@ public abstract class Spawnable : MonoBehaviour
     protected float xSpawnCoord;
     protected float ySpawnCoord;
 
-    private PlayerShooter playerShooter;
+    public PlayerShooter playerShooter;
 
     public abstract bool IsSpawnable();
     public abstract void SpawnInstantiate();
@@ -64,9 +66,9 @@ public abstract class Spawnable : MonoBehaviour
     {
         if (!IsSpawnable()) return false;
         if (!initialized) InitValues();
-        
-        xSpawnCoord = Random.Range(xRange.Item1, xRange.Item2);
-        ySpawnCoord = Random.Range(yRange.Item1, yRange.Item2);
+
+        xSpawnCoord = CalcUtil.GetCoord(xRange.Item1, xRange.Item2, false);
+        ySpawnCoord = CalcUtil.GetCoord(yRange.Item1, yRange.Item2, horizontalSpawn);
 
         SpawnInstantiate();
         return true;

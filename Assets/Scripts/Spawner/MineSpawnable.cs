@@ -8,7 +8,7 @@ public sealed class MineSpawnable : Spawnable<MineSpawnable>
 
     public override bool CheckConstraints()
     {
-        return currentMines <= maxMines;
+        return currentMines < maxMines;
     }
 
     public override void SpawnInstantiate()

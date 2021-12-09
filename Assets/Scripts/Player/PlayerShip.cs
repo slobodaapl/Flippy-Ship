@@ -12,31 +12,32 @@ public class PlayerShip : MonoBehaviour
     public float maxAngleSineSpeed = 1;
 
     [Header("Health and invincibility")]
-    [Range(1, 20)]
     public int health = 6; // 2 health = 1 heart, to avoid float usage here
     public float invincibilityDuration = 1f;
     public float invincibilityBlinkFrequency = 3;
 
-    private bool start = false;
-    private bool turningUp = false;
-    private float posYOffset;
-    private float angleOffset;
+    private static bool turningUp;
+    private static bool returningToScreen;
+    private bool start;
 
-    private bool isInvincible = false;
+    private bool isInvincible;
     private float remainingInvincibility;
     private int invincibilityBlinkDelayMs;
 
     private SpriteRenderer spriteRenderer;
-    private PlayerShooter playerShooter;
     private Rigidbody2D rgbd;
-    //private int debug = 0;
+
+    public static void SwitchDirection()
+    {
+        if (!returningToScreen)
+            turningUp = !turningUp;
+    }
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rgbd = GetComponent<Rigidbody2D>();
         invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2) * 1000);
-        playerShooter = GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShooter>();
     }
 
     void TriggerInvincible()
@@ -46,6 +47,12 @@ public class PlayerShip : MonoBehaviour
         
         remainingInvincibility = invincibilityDuration;
         isInvincible = true;
+    }
+
+    void TakeDamage(int damage)
+    {
+        health -= isInvincible ? 0 : damage;
+        TriggerInvincible();
     }
 
     void CheckGameOver()
@@ -61,15 +68,9 @@ public class PlayerShip : MonoBehaviour
             return;
         
         var impactableComponent = other.gameObject.GetComponent<Impactable>();
-        health -= isInvincible ? 0 : impactableComponent.GetDamage();
+        TakeDamage(impactableComponent.GetDamage());
         impactableComponent.DestroyOnCollission();
         CheckGameOver();
-        TriggerInvincible();
-    }
-
-    private static float ClampAngle(float unadjusted)
-    {
-        return unadjusted > 180 ? unadjusted - 360 : unadjusted;
     }
 
     void InvincibilityEffect()
@@ -94,7 +95,7 @@ public class PlayerShip : MonoBehaviour
     
     void AdjustAngle()
     {
-        var currentRotation = ClampAngle(rgbd.rotation);
+        var currentRotation = CalcUtil.ClampAngle(rgbd.rotation);
         var turnDir = turningUp ? 1 : -1;
         var turnAngle = turnRateDegreesSecond * Time.fixedDeltaTime * turnDir;
 
@@ -109,16 +110,12 @@ public class PlayerShip : MonoBehaviour
     
     void AdjustPos()
     {
-        var angle = ClampAngle(rgbd.rotation);
+        var angle = CalcUtil.ClampAngle(rgbd.rotation);
         var newOffset = Time.fixedDeltaTime * maxAngleSineSpeed * (angle / maxTurnAngle);
         
         rgbd.MovePosition(rgbd.position + new Vector2(0, newOffset));
     }
-    
-    private bool MouseOverUIElement =>
-        EventSystem.current.currentSelectedGameObject != null &&
-        EventSystem.current.currentSelectedGameObject.layer == LayerMask.NameToLayer("UI");
-    
+
     void FixedUpdate()
     {
         if(!start)
@@ -138,18 +135,17 @@ public class PlayerShip : MonoBehaviour
         if (!start)
             start = true;
 
-        if (!PauseController.IsPaused)
-        {
-            if (Input.GetMouseButtonDown(0))
-                if (!MouseOverUIElement)
-                    turningUp = !turningUp;
-        }
-
     }
 
     void OnBecameInvisible()
     {
-        //Debug.Log("Now invisible");
-        //Destroy(gameObject);
+        TakeDamage(1);
+        returningToScreen = true;
+        turningUp = !turningUp;
+    }
+
+    private void OnBecameVisible()
+    {
+        returningToScreen = false;
     }
 }
