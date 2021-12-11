@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public static bool isUnloading;
+
     public void QuitGame()
     {
         Application.Quit();
@@ -22,6 +24,8 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
+        isUnloading = true;
+        TimeTracker.ResetAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

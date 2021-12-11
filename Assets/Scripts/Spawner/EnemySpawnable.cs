@@ -34,6 +34,9 @@ public class EnemySpawnable : Spawnable<EnemySpawnable>
 
     public override void UpdateConstraints(GameObject obj)
     {
+        if (obj == null)
+            return;
+        
         currentEnemies -= 1;
         spawnedTypes.Remove(obj.GetComponent<BaseShip>().type);
     }

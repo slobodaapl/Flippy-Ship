@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -50,7 +51,7 @@ public abstract class Spawnable : MonoBehaviour
     public abstract bool IsSpawnable();
     public abstract void SpawnInstantiate();
     public abstract bool CheckConstraints();
-    public abstract void UpdateConstraints(GameObject obj);
+    public abstract void UpdateConstraints([CanBeNull] GameObject obj);
 
     void Start()
     {
@@ -59,7 +60,17 @@ public abstract class Spawnable : MonoBehaviour
     
     void OnDestroy()
     {
-        UpdateConstraints(gameObject);
+        try
+        {
+            if (GameController.isUnloading)
+                return;
+
+            UpdateConstraints(gameObject);
+        }
+        catch (NullReferenceException)
+        {
+            // Nothing. This is just a unfortunate patch due to problems with Lazy initialization
+        }
     }
 
     public virtual bool Spawn()

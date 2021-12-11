@@ -2,7 +2,7 @@
 
 public abstract class PlayerObserver : MonoBehaviour
 {
-    public PlayerShip player;
+    protected PlayerShip player;
     
     public abstract void HealthChanged();
 

@@ -30,6 +30,9 @@ public sealed class MineSpawnable : Spawnable<MineSpawnable>
 
     public override void UpdateConstraints(GameObject obj)
     {
+        if (obj == null)
+            return;
+        
         var children = obj.transform.childCount;
         currentMines -= children == 0 ? 1 : children;
     }

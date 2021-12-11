@@ -1,18 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RedProjectile : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public float baseDotVelocity;
+    
+    private Rigidbody2D rgbd;
+
+    public void InitVelocity(float angle) // Angle from Vector3.left
+    {
+        rgbd.velocity = new Vector2(baseDotVelocity * Mathf.Cos(angle), baseDotVelocity * Mathf.Sin(angle));
+    }
+    
     void Start()
     {
-        
+        rgbd = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnBecameInvisible()
     {
-        
+        Destroy(gameObject);
     }
 }

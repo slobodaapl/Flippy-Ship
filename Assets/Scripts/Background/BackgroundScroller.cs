@@ -4,55 +4,35 @@ using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
 {
-    [Range(0.01f, 2)]
-    public float scrollSpeed = 1;
+    public static float scrollSpeed = 0.15f;
 
-    public bool offsetFromHigherLayer = false;
-    
-    public float offsetAmount = 0;
-    public BackgroundScroller higherLayer;
-    
+    private float singleScrollSpeed;
     private Renderer texRenderer;
     private Vector2 savedOffset;
 
     void Start () {
         texRenderer = GetComponent<Renderer>();
 
-        if (offsetFromHigherLayer)
-            scrollSpeed = higherLayer.scrollSpeed + offsetAmount;
-
-        if (scrollSpeed <= 0)
+        switch (transform.name)
         {
-            scrollSpeed = 1;
-            Debug.LogError("Scroll speed offset or base speed was 0");
+            case "buildings":
+                singleScrollSpeed = scrollSpeed * 0.9f;
+                break;
+            case "bg-buildings":
+                singleScrollSpeed = scrollSpeed * 0.7f;
+                break;
+            case "bg":
+                singleScrollSpeed = scrollSpeed * 0.25f;
+                break;
+            default:
+                singleScrollSpeed = scrollSpeed;
+                break;
         }
     }
 
     void Update () {
-        float x = Mathf.Repeat (Time.time * scrollSpeed * TimeTracker.GetMoveMultiplier(), 1);
+        float x = Mathf.Repeat (Time.timeSinceLevelLoad * singleScrollSpeed * TimeTracker.GetMoveMultiplier(), 1);
         Vector2 offset = new Vector2 (x, 0);
         texRenderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
-    }
-}
-
-[CustomEditor(typeof(BackgroundScroller))]
-public class BackgroundScrollerEditor : Editor
-{
-    override public void OnInspectorGUI()
-    {
-        var myScript = target as BackgroundScroller;
- 
-        myScript.offsetFromHigherLayer = GUILayout.Toggle(myScript.offsetFromHigherLayer, "Offset based on another");
-
-        if (myScript.offsetFromHigherLayer)
-        {
-            myScript.offsetAmount = EditorGUILayout.FloatField("Secondary offset:", myScript.offsetAmount);
-            myScript.higherLayer = (BackgroundScroller) EditorGUILayout.ObjectField("Higher layer object:", myScript.higherLayer,
-                typeof(BackgroundScroller), true);
-        }
-        else
-        {
-            myScript.scrollSpeed = EditorGUILayout.FloatField("Scroll speed:", myScript.scrollSpeed);
-        }
     }
 }

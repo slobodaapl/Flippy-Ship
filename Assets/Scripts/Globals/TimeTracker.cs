@@ -11,6 +11,15 @@ public static class TimeTracker
     private static float EnemyMineTicker;
     private static float LastTimeStamp;
 
+    public static void ResetAll()
+    {
+        PillarTicker = 0;
+        DebrisTicker = 0;
+        EnemyShipTicker = 0;
+        EnemyMineTicker = 0;
+        LastTimeStamp = 0;
+    }
+    
     private static void TickAll(float dur)
     {
         PillarTicker -= dur;
@@ -21,8 +30,8 @@ public static class TimeTracker
 
     private static void GetUpdateDelta()
     {
-        var dur = Time.time - LastTimeStamp;
-        LastTimeStamp = Time.time;
+        var dur = Time.timeSinceLevelLoad - LastTimeStamp;
+        LastTimeStamp = Time.timeSinceLevelLoad;
         TickAll(dur);
     }
 
@@ -36,7 +45,7 @@ public static class TimeTracker
         GetUpdateDelta();
 
         if (!(PillarTicker <= 0)) return false;
-        PillarTicker = Mathf.Clamp(2 + 1 * (-Time.time / 300), min, 2);
+        PillarTicker = Mathf.Clamp(2 + 1 * (-Time.timeSinceLevelLoad / 300), min, 2);
         return true;
     }
 
@@ -45,7 +54,7 @@ public static class TimeTracker
         GetUpdateDelta();
 
         if (!(DebrisTicker <= 0)) return false;
-        DebrisTicker = Mathf.Clamp(6 + 5 * (-Time.time / 600), min, 6);
+        DebrisTicker = Mathf.Clamp(6 + 5 * (-Time.timeSinceLevelLoad / 600), min, 6);
         return true;
     }
 
@@ -54,7 +63,7 @@ public static class TimeTracker
         GetUpdateDelta();
 
         if (!(EnemyShipTicker <= 0)) return false;
-        EnemyShipTicker = Mathf.Clamp(10 + 10 * (-Time.time / 600), min, 10);
+        EnemyShipTicker = Mathf.Clamp(10 + 10 * (-Time.timeSinceLevelLoad / 600), min, 10);
         return true;
     }
 
@@ -63,12 +72,12 @@ public static class TimeTracker
         GetUpdateDelta();
 
         if (!(EnemyMineTicker <= 0)) return false;
-        EnemyMineTicker = Mathf.Clamp(6 + 3 * (-Time.time / 150), min, 6);
+        EnemyMineTicker = Mathf.Clamp(6 + 3 * (-Time.timeSinceLevelLoad / 150), min, 6);
         return true;
     }
 
     public static float GetMoveMultiplier()
     {
-        return 1 + Mathf.Log10(Mathf.Sqrt(Time.time + 1)) / 4;
+        return 1 + Mathf.Log10(Mathf.Sqrt(Time.timeSinceLevelLoad + 1)) / 4;
     }
 }

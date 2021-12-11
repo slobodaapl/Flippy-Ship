@@ -1,7 +1,5 @@
-using System;
-using UnityEditor.Callbacks;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerShip : MonoBehaviour
 {
@@ -27,50 +25,63 @@ public class PlayerShip : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rgbd;
 
+    private List<PlayerObserver> healthObservers;
+
     public static void SwitchDirection()
     {
         if (!returningToScreen)
             turningUp = !turningUp;
     }
 
+    public void RegisterHealthObserver(PlayerObserver comp)
+    {
+        healthObservers.Add(comp);
+    }
+
+    void Awake()
+    {
+        healthObservers = new List<PlayerObserver>();
+        invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2) * 1000);
+        turningUp = false;
+        returningToScreen = false;
+    }
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rgbd = GetComponent<Rigidbody2D>();
-        invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2) * 1000);
     }
 
     void TriggerInvincible()
     {
-        if(isInvincible)
-            return;
-        
         remainingInvincibility = invincibilityDuration;
         isInvincible = true;
     }
 
     void TakeDamage(int damage)
     {
-        health -= isInvincible ? 0 : damage;
-        TriggerInvincible();
+        if (!isInvincible)
+        {
+            health -= damage;
+            healthObservers.ForEach(x => x.HealthChanged());
+            TriggerInvincible();
+            CheckGameOver();
+        }
     }
 
     void CheckGameOver()
     {
         if (health <= 0)
         {
-            // TODO endgame handling
+            PauseController.isPlayerDead = true;
+            Destroy(gameObject);
         }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (isInvincible)
-            return;
-        
         var impactableComponent = other.gameObject.GetComponent<Impactable>();
         TakeDamage(impactableComponent.GetDamage());
         impactableComponent.DestroyOnCollission();
-        CheckGameOver();
     }
 
     void InvincibilityEffect()
@@ -129,7 +140,7 @@ public class PlayerShip : MonoBehaviour
 
     void Update()
     {
-        if (Time.time <= startDelay)
+        if (Time.timeSinceLevelLoad <= startDelay)
             return;
         
         if (!start)
