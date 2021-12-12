@@ -6,9 +6,13 @@ using UnityEngine.PlayerLoop;
 public class PhysicalDebris : Impactable<DebrisSpawnable>
 {
     public int health = 3;
+    public int destructionPointWorth = 1;
     public GameObject ropePrefab;
 
     private bool falling;
+    
+    private delegate void AddDestruction(int pts);
+    private static AddDestruction addDestructionPoints;
 
     void Start()
     {
@@ -17,6 +21,12 @@ public class PhysicalDebris : Impactable<DebrisSpawnable>
         var obj = Instantiate(ropePrefab, newPos, new Quaternion());
         var objComp = obj.GetComponent<RopeScript>();
         objComp.SetDefaultUnitSpeed(defaultUnitSpeed);
+        
+        if (addDestructionPoints == null)
+        {
+            var pointController = GameObject.FindWithTag("GameController").GetComponent<PointController>();
+            addDestructionPoints = pointController.AddDestruction;
+        }
     }
 
     public void ClickDamage()
@@ -28,6 +38,7 @@ public class PhysicalDebris : Impactable<DebrisSpawnable>
     {
         if (health <= 0)
         {
+            addDestructionPoints(destructionPointWorth);
             Destroy(gameObject);
             return;
         }

@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     [Header("Movement properties")]
-    public float startDelay = 1;
     public float turnRateDegreesSecond = 60;
     public float maxTurnAngle = 90;
     public float maxAngleSineSpeed = 1;
@@ -21,6 +20,8 @@ public class PlayerShip : MonoBehaviour
     private bool isInvincible;
     private float remainingInvincibility;
     private int invincibilityBlinkDelayMs;
+    
+    private float startDelay;
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rgbd;
@@ -50,6 +51,7 @@ public class PlayerShip : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rgbd = GetComponent<Rigidbody2D>();
+        startDelay = GameObject.FindWithTag("GameController").GetComponent<PointController>().startDelay;
     }
 
     void TriggerInvincible()
@@ -136,6 +138,9 @@ public class PlayerShip : MonoBehaviour
         AdjustPos();
         
         InvincibilityEffect();
+
+        if (returningToScreen && !turningUp)
+            turningUp = !turningUp;
     }
 
     void Update()
