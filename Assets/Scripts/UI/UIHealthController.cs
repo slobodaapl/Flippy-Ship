@@ -7,13 +7,13 @@ public class UIHealthController : PlayerObserver
     void Start()
     {
         goText = GetComponent<Text>();
-        goText.text = $"Health: {player.health.ToString()}";
+        goText.text = $"HP: {player.health.ToString()}";
         player.RegisterHealthObserver(this);
     }
     
-    public override void HealthChanged()
+    public override void HealthChanged(bool damage)
     {
         if (goText != null)
-            goText.text = $"Health: {player.health.ToString()}";
+            goText.text = $"HP: {player.health.ToString()}";
     }
 }

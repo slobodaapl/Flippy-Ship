@@ -4,13 +4,21 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     [Header("Movement properties")]
+    [Range(0, 90)]
     public float turnRateDegreesSecond = 60;
-    public float maxTurnAngle = 90;
+    [Range(0, 60)]
+    public float maxTurnAngle = 60;
+    [Range(0.5f, 2)]
     public float maxAngleSineSpeed = 1;
 
     [Header("Health and invincibility")]
-    public int health = 6; // 2 health = 1 heart, to avoid float usage here
+    [Min(1)]
+    public int maxHealth = 3;
+    [Min(0)]
+    public int health = 3;
+    [Min(0)]
     public float invincibilityDuration = 1f;
+    [Range(2, 16)]
     public float invincibilityBlinkFrequency = 3;
 
     private static bool turningUp;
@@ -39,10 +47,16 @@ public class PlayerShip : MonoBehaviour
         healthObservers.Add(comp);
     }
 
+    public void NotifyHealthObserver(bool damage)
+    {
+        healthObservers.ForEach(x => x.HealthChanged(damage));
+    }
+
     void Awake()
     {
         healthObservers = new List<PlayerObserver>();
         invincibilityBlinkDelayMs = (int) (invincibilityDuration / (invincibilityBlinkFrequency * 2) * 1000);
+        health = maxHealth;
         turningUp = false;
         returningToScreen = false;
     }
@@ -65,7 +79,7 @@ public class PlayerShip : MonoBehaviour
         if (!isInvincible)
         {
             health -= damage;
-            healthObservers.ForEach(x => x.HealthChanged());
+            NotifyHealthObserver(true);
             TriggerInvincible();
             CheckGameOver();
         }

@@ -4,7 +4,7 @@ public abstract class PlayerObserver : MonoBehaviour
 {
     protected PlayerShip player;
     
-    public abstract void HealthChanged();
+    public abstract void HealthChanged(bool damage);
 
     void Awake()
     {

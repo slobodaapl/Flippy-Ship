@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: background
+  m_Name: far-buildings
   m_Shader: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,9 +40,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 69b4325fb0cd07f4eb6bbd0769e980e6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9d994355834e6a147ac853a6a3ec0f26, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0.5161545, y: 0}
+        m_Offset: {x: 0.24893904, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}

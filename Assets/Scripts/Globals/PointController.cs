@@ -21,23 +21,31 @@ public class PointController : PlayerObserver
 
     private float timeUntilNextMultiplier;
 
-    void Start()
+    public double GetScore()
     {
-        multiplierController = uiMultiplier.GetComponent<UIMultiplierController>();
-        scoreController = uiScore.GetComponent<UIScoreController>();
-        GameObject.FindWithTag("Player").GetComponent<PlayerShip>().RegisterHealthObserver(this);
-        timeUntilNextMultiplier = baseTimeUntilNextMultiplier;
+        return score;
     }
     
-    public override void HealthChanged()
+    public override void HealthChanged(bool damage)
     {
+        if (!damage) return;
+        
         multiplier = 1;
+        multiplierController.UpdateMultplier(1);
         timeUntilNextMultiplier = baseTimeUntilNextMultiplier;
     }
 
     public void AddDestruction(int pts)
     {
         destruction += pts;
+    }
+    
+    void Start()
+    {
+        multiplierController = uiMultiplier.GetComponent<UIMultiplierController>();
+        scoreController = uiScore.GetComponent<UIScoreController>();
+        GameObject.FindWithTag("Player").GetComponent<PlayerShip>().RegisterHealthObserver(this);
+        timeUntilNextMultiplier = baseTimeUntilNextMultiplier;
     }
 
     private void ScaleMultiplier()

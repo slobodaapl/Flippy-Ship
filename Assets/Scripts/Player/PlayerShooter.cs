@@ -1,25 +1,33 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PlayerShooter : MonoBehaviour
 {
-    public int damage = 1;
+    public float damage = 1;
     public int maxTargets = 1;
     public float cooldown = 2.5f;
-    public float maxAngle = 15;
-
-    public Action<Collision2D> OnCollissionEnter2D_Action;
-    public Action<Collision2D> OnCollissionExit2D_Action;
+    public float maxAngle = 5;
 
     private float cooldownRemaining;
     private Dictionary<int, Shootable> shootableDict = new Dictionary<int, Shootable>();
     private GameObject playerShip;
+    private CircleCollider2D circleCollider;
 
+    public void OffsetColliderRadius(float offset)
+    {
+        circleCollider.radius += offset;
+    }
+
+    public float GetColliderRadius()
+    {
+        return circleCollider.radius;
+    }
+    
     void Start()
     {
         playerShip = transform.parent.gameObject;
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     void OnTriggerEnter2D(Collider2D other)

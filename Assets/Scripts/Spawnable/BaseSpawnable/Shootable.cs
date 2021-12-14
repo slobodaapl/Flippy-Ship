@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Shootable : MonoBehaviour
 {
-    public int health = 1;
+    public float health = 1;
     public int destructionPointWorth = 1;
 
     private delegate void AddDestruction(int pts);
@@ -18,7 +18,7 @@ public class Shootable : MonoBehaviour
         }
     }
 
-    public void GetShot(int damage)
+    public void GetShot(float damage)
     {
         health -= damage;
         CheckAlive();
