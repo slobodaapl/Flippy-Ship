@@ -298,8 +298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 0, y: -200}
+  m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &150348284
 MonoBehaviour:
@@ -331,7 +331,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 295093859}
   - component: {fileID: 295093858}
   m_Layer: 5
-  m_Name: Submit
+  m_Name: Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -642,7 +642,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 295093859}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 381647402}
+        m_TargetAssemblyTypeName: UpgradeDetail, Assembly-CSharp
+        m_MethodName: CancelChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &295093859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,7 +1067,7 @@ GameObject:
   - component: {fileID: 429851809}
   - component: {fileID: 429851808}
   m_Layer: 5
-  m_Name: Cancel
+  m_Name: Submit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1124,7 +1136,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 429851809}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 381647402}
+        m_TargetAssemblyTypeName: UpgradeDetail, Assembly-CSharp
+        m_MethodName: ConfirmChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1397297714}
+        m_TargetAssemblyTypeName: UpgradePanel, Assembly-CSharp
+        m_MethodName: Finish
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2026318444}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &429851809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1661,8 +1709,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 0, y: -200}
+  m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720766483
 MonoBehaviour:
@@ -1694,7 +1742,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
@@ -1740,8 +1788,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 0, y: -200}
+  m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &745489099
 MonoBehaviour:
@@ -1773,7 +1821,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
@@ -2068,7 +2116,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0c866c1c7f33674aa0054f8a38886bc, type: 3}
   m_Name: 
@@ -2110,7 +2158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab80439edc5f63a4aafdaa69151bbe3e, type: 3}
   m_Name: 
@@ -2897,6 +2945,7 @@ MonoBehaviour:
   upgradeSlotTwoTextObject: {fileID: 150348282}
   upgradeSlotThreeObject: {fileID: 1055606658}
   upgradeSlotThreeTextObject: {fileID: 745489097}
+  upgradeDetailObject: {fileID: 381647398}
 --- !u!1 &1416458052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2931,8 +2980,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 190}
-  m_SizeDelta: {x: 650, y: 125}
+  m_AnchoredPosition: {x: 0, y: 205}
+  m_SizeDelta: {x: 650, y: 165}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1416458054
 MonoBehaviour:
@@ -2956,10 +3005,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 8d3a9c24308870249ac5880658b42d96, type: 3}
-    m_FontSize: 23
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -3330,7 +3379,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 350}
+  m_AnchoredPosition: {x: 0, y: 375}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1807928489
@@ -3808,7 +3857,7 @@ MonoBehaviour:
   pausePanel: {fileID: 1838712762}
   resumeButton: {fileID: 702111350}
   goText: {fileID: 405261168}
-  pauseButton: {fileID: 0}
+  pauseButton: {fileID: 1321200258}
 --- !u!114 &2026318445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3863,6 +3912,8 @@ MonoBehaviour:
   - {fileID: 128608321441897964, guid: 0a839a6308a5555408eed12df24c9c74, type: 3}
   - {fileID: 1125522086588710816, guid: 87d80a60ac2f96841864ccab2cc044cb, type: 3}
   - {fileID: 2398758881227733341, guid: 3a4f7e12d11af9d409cb9055c63d1431, type: 3}
+  upgradeThreshold: 1000
+  upgradePanelObject: {fileID: 1397297710}
 --- !u!4 &2036782376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 337928769002574406, guid: 295b6b712544e8247abc922d970ee60c, type: 3}
@@ -3963,6 +4014,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 337928769134486931, guid: 295b6b712544e8247abc922d970ee60c, type: 3}
+      propertyPath: playerProjectile
+      value: 
+      objectReference: {fileID: 2417628822647005040, guid: 41e0d1ca66133c64c9c18e794c3edced, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 295b6b712544e8247abc922d970ee60c, type: 3}
 --- !u!1001 &4438314535843685151

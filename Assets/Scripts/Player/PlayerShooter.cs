@@ -9,6 +9,8 @@ public class PlayerShooter : MonoBehaviour
     public float cooldown = 2.5f;
     public float maxAngle = 5;
 
+    public GameObject playerProjectile;
+
     private float cooldownRemaining;
     private Dictionary<int, Shootable> shootableDict = new Dictionary<int, Shootable>();
     private GameObject playerShip;
@@ -54,8 +56,21 @@ public class PlayerShooter : MonoBehaviour
         shootableDict.Remove(obj.GetInstanceID());
     }
 
+    private void GenerateProjectile(Shootable target)
+    {
+        var targetVec = target.transform.position - playerShip.transform.position;
+        var forwardVec = playerShip.transform.right;
+        var angle = Vector3.SignedAngle(targetVec, forwardVec, Vector3.up);
+        var scale = Vector3.Distance(gameObject.transform.position, target.gameObject.transform.position);
+        var shotObj = Instantiate(playerProjectile, playerShip.transform.position, Quaternion.Euler(0, 0, angle))
+            .GetComponent<PlayerProjectile>();
+        
+        shotObj.transform.localScale = new Vector3(scale, 1, 1);
+    }
+
     private void Shoot(Shootable target)
     {
+        GenerateProjectile(target);
         target.GetShot(damage);
         cooldownRemaining = cooldown;
     }

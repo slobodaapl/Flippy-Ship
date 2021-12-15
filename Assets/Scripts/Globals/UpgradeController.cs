@@ -10,13 +10,12 @@ public class UpgradeController : MonoBehaviour
 	public double upgradeThreshold = 1000;
 
 	public GameObject upgradePanelObject;
-	public GameObject upgradeDetailObject;
 
 	private PlayerShip ship;
 	private PlayerShooter shooter;
 	private PointController pointController;
+	private PauseController pauseController;
 	private UpgradePanel upgradePanel;
-	private UpgradeDetail upgradeDetail;
 
 	private int upgradeExponent = 1;
 
@@ -25,8 +24,8 @@ public class UpgradeController : MonoBehaviour
 		ship = GameObject.FindWithTag("Player").GetComponent<PlayerShip>();
 		shooter = GameObject.FindWithTag("Shooter").GetComponent<PlayerShooter>();
 		pointController = GetComponent<PointController>();
+		pauseController = GetComponent<PauseController>();
 		upgradePanel = upgradePanelObject.GetComponent<UpgradePanel>();
-		upgradeDetail = upgradeDetailObject.GetComponent<UpgradeDetail>();
 	}
 	
 	void Update()
@@ -67,6 +66,7 @@ public class UpgradeController : MonoBehaviour
 	private void TriggerUpgrade()
 	{
 		var (u1, u2, u3) = GetThreeRandom();
-		//TODO Finish
+		pauseController.Pause();
+		upgradePanel.Setup(u1, u2, u3);
 	}
 }
