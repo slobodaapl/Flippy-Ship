@@ -21,8 +21,17 @@ public class PlayerProjectile : MonoBehaviour
 
 	void Update()
 	{
-		if (durationVisible <= 0)
+		if (ship == null)
+		{
 			Destroy(gameObject);
+			return;
+		}
+
+		if (gameObject != null && durationVisible <= 0)
+		{
+			Destroy(gameObject);
+			return;
+		}
 
 		durationVisible -= Time.deltaTime;
 

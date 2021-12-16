@@ -58,12 +58,18 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickEnemyShip(float min=2.5f)
+    public static bool TickEnemyShip(float min=10f)
     {
         GetUpdateDelta();
 
         if (!(EnemyShipTicker <= 0)) return false;
-        EnemyShipTicker = Mathf.Clamp(10 + 10 * (-Time.timeSinceLevelLoad / 600), min, 10);
+        
+        EnemyShipTicker = Mathf.Clamp(30 + 20 * (-Time.timeSinceLevelLoad / 600), min, 30);
+        var mul = 1 / GetMoveMultiplier();
+        PillarTicker = 11f * mul;
+        EnemyMineTicker = 11f * mul;
+        EnemyMineTicker = 11f * mul;
+        
         return true;
     }
 

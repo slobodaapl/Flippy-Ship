@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2051661472579056729}
   - component: {fileID: 8057942725136202020}
-  - component: {fileID: 7184754347416067856}
   - component: {fileID: 5119717058303464662}
-  - component: {fileID: 5391470628058401453}
   - component: {fileID: 3634189256699150432}
+  - component: {fileID: 5391470628058401453}
+  - component: {fileID: 7184754347416067856}
   m_Layer: 0
   m_Name: ProjectileR
   m_TagString: Untagged
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7184754347416067856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394700938005491702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ccf1e3ac4af7194fa64ea0a1c4cdd74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &5119717058303464662
 Rigidbody2D:
   serializedVersion: 4
@@ -119,21 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5391470628058401453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394700938005491702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17333d19cc484b628b71c9208b1803fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionDamage: 1
-  defaultUnitSpeed: 1
-  isDestroyedOnImpact: 1
 --- !u!58 &3634189256699150432
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +123,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5391470628058401453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394700938005491702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17333d19cc484b628b71c9208b1803fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionDamage: 1
+  defaultUnitSpeed: 1
+  isDestroyedOnImpact: 1
+--- !u!114 &7184754347416067856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394700938005491702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ccf1e3ac4af7194fa64ea0a1c4cdd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionDamage: 1
+  defaultUnitSpeed: 7
+  isDestroyedOnImpact: 1

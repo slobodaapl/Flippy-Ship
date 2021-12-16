@@ -28,10 +28,8 @@ public class UpgradeDetail : MonoBehaviour
 		gameObject.SetActive(true);
 
 		currentUpgrade = Instantiate(chosen, Vector3.zero, Quaternion.identity);
-		currentUpgrade.gameObject.transform.parent = upgradeSlotObject.transform;
-		currentUpgrade.gameObject.transform.localPosition = Vector3.zero;
-		currentUpgrade.gameObject.transform.localScale = Vector3.one;
-		
+		currentUpgrade.gameObject.transform.SetParent(upgradeSlotObject.transform, false);
+
 		currentUpgrade.gameObject.GetComponent<Button>().enabled = false;
 
 		detailText.text = currentUpgrade.upgradeDesc;

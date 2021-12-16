@@ -3,25 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedProjectile : MonoBehaviour
+public class RedProjectile : BaseEnemyProjectile
 {
-
-    public float baseDotVelocity;
-    
-    private Rigidbody2D rgbd;
-
-    public void InitVelocity(float angle) // Angle from Vector3.left
+    public void InitAngle(float angle)
     {
-        rgbd.velocity = new Vector2(baseDotVelocity * Mathf.Cos(angle), baseDotVelocity * Mathf.Sin(angle));
-    }
-    
-    void Start()
-    {
-        rgbd = GetComponent<Rigidbody2D>();
-    }
-
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
+        angle *= Mathf.Deg2Rad;
+        rgbd.velocity = defaultUnitSpeed * new Vector2( -Mathf.Cos(angle), Mathf.Sin(angle));
     }
 }

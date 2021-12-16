@@ -1420,7 +1420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609233086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.18, y: -10.89, z: 0}
+  m_LocalPosition: {x: 14, y: -11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 469250611}
@@ -2116,7 +2116,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0c866c1c7f33674aa0054f8a38886bc, type: 3}
   m_Name: 
@@ -2185,8 +2185,6 @@ MonoBehaviour:
   bottomRightSpawnMarker: {fileID: 609233086}
   patterns:
   - {fileID: 8454691750403829287, guid: 20844f23c219945449e4ed6265fb0fa2, type: 3}
-  - {fileID: 914613417688548516, guid: 2985c0b9b35b49e468bcc6a4718bd7c5, type: 3}
-  - {fileID: 8595486814930812907, guid: 750089f6e19155146b2fe137fc6aff1d, type: 3}
   horizontalSpawn: 1
   playerShooter: {fileID: 1628119805}
 --- !u!1 &1194164290
@@ -2843,7 +2841,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383501077}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.93, y: 10.89, z: 0}
+  m_LocalPosition: {x: 11.5, y: 11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 469250611}

@@ -52,6 +52,14 @@ public class PlayerShip : MonoBehaviour
         healthObservers.ForEach(x => x.HealthChanged(damage));
     }
 
+    public Vector2 Get2DPos()
+    {
+        if(rgbd != null)
+            return rgbd.position;
+
+        return Vector2.zero;
+    }
+
     void Awake()
     {
         healthObservers = new List<PlayerObserver>();
@@ -153,8 +161,12 @@ public class PlayerShip : MonoBehaviour
         
         InvincibilityEffect();
 
-        if (returningToScreen && !turningUp)
-            turningUp = !turningUp;
+        if (returningToScreen)
+        {
+            var sign = Mathf.Sign(rgbd.position.y);
+            if ((sign > 0 && turningUp) || (sign < 0 && !turningUp))
+                turningUp = !turningUp;
+        }
     }
 
     void Update()

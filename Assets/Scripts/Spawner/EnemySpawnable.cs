@@ -7,7 +7,7 @@ public class EnemySpawnable : Spawnable<EnemySpawnable>
     private int maxEnemies = 3;
     private int currentEnemies;
 
-    private List<EnemyShipType> spawnedTypes;
+    private List<EnemyShipType> spawnedTypes = new List<EnemyShipType>();
 
     public override bool IsSpawnable()
     {

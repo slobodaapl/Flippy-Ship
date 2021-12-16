@@ -37,10 +37,11 @@ public class UpgradePanel : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	public void Setup(GenericUpgrade u1, GenericUpgrade u2, GenericUpgrade u3) // I'm not proud of it trust me, but I had no idea how else to do it
+	public void Setup(GenericUpgrade u1, GenericUpgrade u2, GenericUpgrade u3)
+		// I'm not proud of this method, trust me, but I had no idea how else to do it
 	{
 		gameObject.SetActive(true);
-		
+
 		if (instantiatedUpgrades.Count != 0)
 		{
 			foreach (var u in instantiatedUpgrades)
@@ -56,18 +57,10 @@ public class UpgradePanel : MonoBehaviour
 		var u1Obj = Instantiate(u1, Vector3.zero, Quaternion.identity);
 		var u2Obj = Instantiate(u2, Vector3.zero, Quaternion.identity);
 		var u3Obj = Instantiate(u3, Vector3.zero, Quaternion.identity);
-		
-		u1Obj.gameObject.transform.parent = upgradeSlotOneObject.transform;
-		u2Obj.gameObject.transform.parent = upgradeSlotTwoObject.transform;
-		u3Obj.gameObject.transform.parent = upgradeSlotThreeObject.transform;
-		
-		u1Obj.gameObject.transform.localScale = Vector3.one;
-		u2Obj.gameObject.transform.localScale = Vector3.one;
-		u3Obj.gameObject.transform.localScale = Vector3.one;
 
-		u1Obj.gameObject.transform.localPosition = Vector3.zero;
-		u2Obj.gameObject.transform.localPosition = Vector3.zero;
-		u3Obj.gameObject.transform.localPosition = Vector3.zero;
+		u1Obj.transform.SetParent(upgradeSlotOneObject.transform, false);
+		u2Obj.transform.SetParent(upgradeSlotTwoObject.transform, false);
+		u3Obj.transform.SetParent(upgradeSlotThreeObject.transform, false);
 
 		u1Obj.GetComponent<Button>().onClick.AddListener(delegate { upgradeDetail.Choice(u1Obj); } );
 		u2Obj.GetComponent<Button>().onClick.AddListener(delegate { upgradeDetail.Choice(u2Obj); } );

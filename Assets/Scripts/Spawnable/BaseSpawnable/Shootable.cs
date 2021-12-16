@@ -8,9 +8,12 @@ public class Shootable : MonoBehaviour
 
     private delegate void AddDestruction(int pts);
     private static AddDestruction addDestructionPoints;
+    private PlayerShooter shooter;
 
     void Start()
     {
+        shooter = GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShooter>();
+        
         if (addDestructionPoints == null)
         {
             var pointController = GameObject.FindWithTag("GameController").GetComponent<PointController>();
@@ -26,11 +29,10 @@ public class Shootable : MonoBehaviour
 
     private void CheckAlive()
     {
-        if (health <= 0)
-        {
-            addDestructionPoints(destructionPointWorth);
-            Destroy(gameObject);
-            GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShooter>().DestroyCallback(gameObject);
-        }
+        if (health > 0) return;
+        
+        addDestructionPoints(destructionPointWorth);
+        Destroy(gameObject);
+        shooter.DestroyCallback(gameObject);
     }
 }
