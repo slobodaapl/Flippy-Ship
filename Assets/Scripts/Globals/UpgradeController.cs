@@ -7,7 +7,7 @@ using UnityEngine;
 public class UpgradeController : MonoBehaviour
 {
 	public List<GenericUpgrade> upgradeList;
-	public double upgradeThreshold = 1000;
+	public double upgradeThreshold = 2000;
 
 	public GameObject upgradePanelObject;
 
@@ -33,7 +33,9 @@ public class UpgradeController : MonoBehaviour
 		if (pointController.GetScore() >= upgradeThreshold)
 		{
 			TriggerUpgrade();
-			upgradeThreshold += upgradeThreshold * Mathf.Pow(2, upgradeExponent / 2f);
+			ship.TriggerInvincible(4f);
+			//upgradeThreshold += upgradeThreshold * Mathf.Pow(2, upgradeExponent / 2f); <- Didn't scale well
+			upgradeThreshold += upgradeThreshold + 500 * upgradeExponent; // Linear scaling instead
 			upgradeExponent += 1;
 		}
 	}

@@ -59,6 +59,18 @@ public class PlayerShip : MonoBehaviour
 
         return Vector2.zero;
     }
+    
+    public void TriggerInvincible(float duration)
+    {
+        remainingInvincibility = duration;
+        isInvincible = true;
+    }
+    
+    private void TriggerInvincible()
+    {
+        remainingInvincibility = invincibilityDuration;
+        isInvincible = true;
+    }
 
     void Awake()
     {
@@ -74,12 +86,6 @@ public class PlayerShip : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rgbd = GetComponent<Rigidbody2D>();
         startDelay = GameObject.FindWithTag("GameController").GetComponent<PointController>().startDelay;
-    }
-
-    void TriggerInvincible()
-    {
-        remainingInvincibility = invincibilityDuration;
-        isInvincible = true;
     }
 
     void TakeDamage(int damage)

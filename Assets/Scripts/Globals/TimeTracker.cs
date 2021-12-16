@@ -15,7 +15,7 @@ public static class TimeTracker
     {
         PillarTicker = 0;
         DebrisTicker = 0;
-        EnemyShipTicker = 0;
+        EnemyShipTicker = 15;
         EnemyMineTicker = 0;
         LastTimeStamp = 0;
     }
@@ -68,7 +68,7 @@ public static class TimeTracker
         var mul = 1 / GetMoveMultiplier();
         PillarTicker = 11f * mul;
         EnemyMineTicker = 11f * mul;
-        EnemyMineTicker = 11f * mul;
+        DebrisTicker = 11f * mul;
         
         return true;
     }

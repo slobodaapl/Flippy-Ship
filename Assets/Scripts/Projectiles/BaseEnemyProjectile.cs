@@ -1,22 +1,27 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class BaseEnemyProjectile : Impactable
 {
-    
+
     public void InitOffset(float offset)
     {
         rgbd.MovePosition(rgbd.position + new Vector2(offset, 0));
     }
 
-    protected void FixedUpdate()
+    void CustomDestroy()
+    {
+        GameObject.FindWithTag("Shooter")?.GetComponent<PlayerShooter>()?.DestroyCallback(gameObject);
+        Destroy(gameObject);
+    }
+
+    protected virtual void FixedUpdate()
     {
         if (rgbd.position.x <= -20)
-            Destroy(gameObject);
+            CustomDestroy();
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        CustomDestroy();
     }
 }

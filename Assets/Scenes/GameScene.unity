@@ -2116,7 +2116,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0c866c1c7f33674aa0054f8a38886bc, type: 3}
   m_Name: 
@@ -2139,7 +2139,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cdf134ff19e7aa46afa5dcbee0524b3, type: 3}
   m_Name: 
@@ -2158,7 +2158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab80439edc5f63a4aafdaa69151bbe3e, type: 3}
   m_Name: 
@@ -2176,7 +2176,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123712327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b747e0e09fdeda649b2e8bb26f186511, type: 3}
   m_Name: 
@@ -2184,6 +2184,7 @@ MonoBehaviour:
   topLeftSpawnMarker: {fileID: 1383501077}
   bottomRightSpawnMarker: {fileID: 609233086}
   patterns:
+  - {fileID: 8595486814930812907, guid: 750089f6e19155146b2fe137fc6aff1d, type: 3}
   - {fileID: 8454691750403829287, guid: 20844f23c219945449e4ed6265fb0fa2, type: 3}
   horizontalSpawn: 1
   playerShooter: {fileID: 1628119805}
@@ -3883,7 +3884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiMultiplier: {fileID: 338439432}
   uiScore: {fileID: 1091719798}
-  baseTimeUntilNextMultiplier: 1
+  baseTimeUntilNextMultiplier: 2.5
   baseScoreIncement: 1
   baseDestructionScoreWorth: 100
   startDelay: 2

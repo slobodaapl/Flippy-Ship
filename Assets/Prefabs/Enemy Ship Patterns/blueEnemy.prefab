@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionDamage: 1
   defaultUnitSpeed: 1
-  isDestroyedOnImpact: 1
-  type: 2
+  isDestroyedOnImpact: 0
+  type: 1
   projectile: {fileID: 2383382464624496497, guid: 68136f9e65fa47142a5434c3eae17c5b, type: 3}
+  shotCooldown: 1.5

@@ -11,8 +11,10 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
+        TimeTracker.ResetAll();
         spawners = GetComponents<Spawnable>().ToList();
-        // I quickly decided to scrap this, cause Reflexion is horribly buggy and hard to maintain
+        
+        // I quickly decided to scrap this, cause Reflection is horribly buggy and hard to maintain
         // I refactored the code to work better with OOP patterns.. but I'm leaving this here to scare those who read it
 
         // var fields =  

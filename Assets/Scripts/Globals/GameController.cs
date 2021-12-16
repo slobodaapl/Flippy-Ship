@@ -25,7 +25,6 @@ public class GameController : MonoBehaviour
     public void RestartGame()
     {
         isUnloading = true;
-        TimeTracker.ResetAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
