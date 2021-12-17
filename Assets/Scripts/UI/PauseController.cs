@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
 {
@@ -12,38 +9,40 @@ public class PauseController : MonoBehaviour
     public GameObject resumeButton;
     public GameObject goText;
     public GameObject pauseButton;
-    
-    // TODO: Fix pause with ESC??
 
-    void Update()
+    private void Update() // Esc to pause only for Desktops. Won't be a thing in android. Not important functionality
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause();
+
+            if (pauseButton.activeSelf) pauseButton.SetActive(false);
+            else pauseButton.SetActive(true);
+            if (pausePanel.activeSelf) pausePanel.SetActive(false);
+            else pausePanel.SetActive(true);
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (isPlayerDead)
+        if (isPlayerDead) // isPlayerDead is changed by player
             LoseGame();
     }
 
-    public void Pause()
+    public void Pause() // stop time on pause
     {
         IsPaused = !IsPaused;
         Time.timeScale = IsPaused ? 0f : 1f;
     }
 
-    public void LoseGame()
+    public void LoseGame() // Show pausepanel without resume, behind which is hiding 'Game Over'
     {
-        // resumeButton.GetComponent<Button>().interactable = false;
         Pause();
         pausePanel.SetActive(true);
         resumeButton.SetActive(false);
     }
 
-    public void UnsetDeath()
+    public void UnsetDeath() // When we restart
     {
         isPlayerDead = false;
     }

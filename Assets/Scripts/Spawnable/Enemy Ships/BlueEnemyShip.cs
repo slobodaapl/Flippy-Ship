@@ -2,8 +2,7 @@
 
 public class BlueEnemyShip : BaseShip
 {
-
-    override protected void FixedUpdate()
+    protected override void FixedUpdate() // Blue enemy ship shoots 2 zigzagging destructible large projectiles
     {
         base.FixedUpdate();
 
@@ -18,13 +17,13 @@ public class BlueEnemyShip : BaseShip
                 .GetComponent<BlueProjectile>();
             var shotTwo = Instantiate(projectile, pos, Quaternion.identity)
                 .GetComponent<BlueProjectile>();
-            
+
             shotOne.InitOffset(xOffset);
             shotTwo.InitOffset(xOffset);
-            
+
             shotTwo.TriggerSineOffset();
         }
-        
+
         currentCooldown -= Time.fixedDeltaTime;
     }
 }

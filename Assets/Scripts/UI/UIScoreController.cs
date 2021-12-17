@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIScoreController : MonoBehaviour
+public class UIScoreController : MonoBehaviour // Update score on demand on each frame, called from PointController
 {
     private Text goText;
 
-    void Start()
+    private void Start()
     {
         goText = GetComponent<Text>();
     }
-    
+
     public void UpdateScore(double score, int multiplier)
     {
         if (goText != null)

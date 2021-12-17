@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemySpawnable : Spawnable<EnemySpawnable>
+public class EnemySpawnable : Spawnable<EnemySpawnable> // Check Spawnable
 {
-    private int maxEnemies = 2;
     private int currentEnemies;
+    private readonly int maxEnemies = 2;
 
-    private List<EnemyShipType> spawnedTypes = new List<EnemyShipType>();
+    private readonly List<EnemyShipType> spawnedTypes = new List<EnemyShipType>();
 
     public override bool IsSpawnable()
     {
@@ -17,7 +17,7 @@ public class EnemySpawnable : Spawnable<EnemySpawnable>
     public override void SpawnInstantiate()
     {
         var valid_patterns = patterns.Where(x => !spawnedTypes.Contains(x.GetComponent<BaseShip>().type)).ToList();
-        
+
         if (valid_patterns.Count == 0) return;
 
         currentEnemies += 1;
@@ -36,7 +36,7 @@ public class EnemySpawnable : Spawnable<EnemySpawnable>
     {
         if (obj == null)
             return;
-        
+
         currentEnemies -= 1;
         spawnedTypes.Remove(obj.GetComponent<BaseShip>().type);
     }

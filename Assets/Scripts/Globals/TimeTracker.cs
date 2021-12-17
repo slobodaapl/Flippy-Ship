@@ -5,11 +5,15 @@ public static class TimeTracker
     // This file's existence is purely optional, I could include all these methods in the Spawnable classes
     // but I chose to move the implementation here to make the game easier to balance and optimize from one place
     
+    // This script tracks the speed of objects over time, as they speed up gradually, and cooldowns of various spawns
+
     private static float PillarTicker;
     private static float DebrisTicker;
     private static float EnemyShipTicker;
     private static float EnemyMineTicker;
     private static float LastTimeStamp;
+
+    public static bool tutorial;
 
     public static void ResetAll()
     {
@@ -18,8 +22,9 @@ public static class TimeTracker
         EnemyShipTicker = 15;
         EnemyMineTicker = 0;
         LastTimeStamp = 0;
+        tutorial = true;
     }
-    
+
     private static void TickAll(float dur)
     {
         PillarTicker -= dur;
@@ -39,8 +44,8 @@ public static class TimeTracker
     {
         EnemyShipTicker = cooldown;
     }
-    
-    public static bool TickPillar(float min=1)
+
+    public static bool TickPillar(float min = 1)
     {
         GetUpdateDelta();
 
@@ -49,7 +54,7 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickDebris(float min=1.0f)
+    public static bool TickDebris(float min = 1.0f)
     {
         GetUpdateDelta();
 
@@ -58,22 +63,22 @@ public static class TimeTracker
         return true;
     }
 
-    public static bool TickEnemyShip(float min=10f)
+    public static bool TickEnemyShip(float min = 10f)
     {
         GetUpdateDelta();
 
         if (!(EnemyShipTicker <= 0)) return false;
-        
+
         EnemyShipTicker = Mathf.Clamp(30 + 20 * (-Time.timeSinceLevelLoad / 600), min, 30);
         var mul = 1 / GetMoveMultiplier();
         PillarTicker = 11f * mul;
         EnemyMineTicker = 11f * mul;
         DebrisTicker = 11f * mul;
-        
+
         return true;
     }
 
-    public static bool TickEnemyMine(float min=3)
+    public static bool TickEnemyMine(float min = 3)
     {
         GetUpdateDelta();
 

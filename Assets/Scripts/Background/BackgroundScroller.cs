@@ -1,5 +1,3 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
@@ -8,12 +6,15 @@ public class BackgroundScroller : MonoBehaviour
 
     private float singleScrollSpeed;
     private Renderer texRenderer;
-    private Vector2 savedOffset;
 
-    void Start () {
+    private void Start()
+    {
         texRenderer = GetComponent<Renderer>();
 
-        switch (transform.name)
+        // Not an efficient way I know. Previously I had it as each bg had its own component
+        // and each component could have a reference to a gameobject containing the same component, and would offset
+        // its speed based on it by a given amount. Profiling showed it's slow for some reason so I removed it.
+        switch (transform.name) 
         {
             case "buildings":
                 singleScrollSpeed = scrollSpeed * 0.9f;
@@ -30,9 +31,10 @@ public class BackgroundScroller : MonoBehaviour
         }
     }
 
-    void Update () {
-        float x = Mathf.Repeat (Time.timeSinceLevelLoad * singleScrollSpeed * TimeTracker.GetMoveMultiplier(), 1);
-        Vector2 offset = new Vector2 (x, 0);
-        texRenderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
+    private void Update() // Simply scroll background elements based on time spent ingame (speeds up over time) and base scrollspeed
+    {
+        var x = Mathf.Repeat(Time.timeSinceLevelLoad * singleScrollSpeed * TimeTracker.GetMoveMultiplier(), 1);
+        var offset = new Vector2(x, 0);
+        texRenderer.sharedMaterial.SetTextureOffset("_MainTex", offset); // Just shifting texture, no actual movement
     }
 }

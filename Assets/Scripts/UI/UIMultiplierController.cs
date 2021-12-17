@@ -1,17 +1,15 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngineInternal;
 
-public class UIMultiplierController : MonoBehaviour
+public class UIMultiplierController : MonoBehaviour // Change multiplier UI on demand.. Rocking that MVC pattern
 {
     private Text goText;
 
-    void Start()
+    private void Start()
     {
         goText = GetComponent<Text>();
     }
-    
+
     public void UpdateMultplier(int multiplier)
     {
         if (goText != null)

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class TurnSpeedUpgrade : GenericUpgrade
 {
     public override bool CheckValid(PlayerShip ship, PlayerShooter shooter)

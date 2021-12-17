@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PausePanel : MonoBehaviour
 {
-    void Start()
+    private void Start() // Just deactivate on beginning
     {
         gameObject.SetActive(false);
     }

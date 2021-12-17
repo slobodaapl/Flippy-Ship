@@ -1,52 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeDetail : MonoBehaviour
+public class UpgradeDetail : MonoBehaviour // Panel with upgrade's description
 {
-	public GameObject upgradeSlotObject;
-	public GameObject detailTextObject;
+    public GameObject upgradeSlotObject;
+    public GameObject detailTextObject;
 
-	private GenericUpgrade currentUpgrade;
+    private GenericUpgrade currentUpgrade;
 
-	private PlayerShip ship;
-	private PlayerShooter shooter;
-	
-	private Text detailText;
+    private Text detailText;
 
-	void Start()
-	{
-		detailText = detailTextObject.GetComponent<Text>();
-		gameObject.SetActive(false);
-		ship = GameObject.FindWithTag("Player").GetComponent<PlayerShip>();
-		shooter = GameObject.FindWithTag("Shooter").GetComponent<PlayerShooter>();
-	}
+    private PlayerShip ship;
+    private PlayerShooter shooter;
 
-	public void Choice(GenericUpgrade chosen)
-	{
-		gameObject.SetActive(true);
+    private void Start() // Invisible on start
+    {
+        detailText = detailTextObject.GetComponent<Text>();
+        gameObject.SetActive(false);
+        ship = GameObject.FindWithTag("Player").GetComponent<PlayerShip>();
+        shooter = GameObject.FindWithTag("Shooter").GetComponent<PlayerShooter>();
+    }
 
-		currentUpgrade = Instantiate(chosen, Vector3.zero, Quaternion.identity);
-		currentUpgrade.gameObject.transform.SetParent(upgradeSlotObject.transform, false);
+    public void Choice(GenericUpgrade chosen) // Once we choose upgrade, show this panel and show description of upgrade
+    {
+        gameObject.SetActive(true);
 
-		currentUpgrade.gameObject.GetComponent<Button>().enabled = false;
+        currentUpgrade = Instantiate(chosen, Vector3.zero, Quaternion.identity);
+        currentUpgrade.gameObject.transform.SetParent(upgradeSlotObject.transform, false);
 
-		detailText.text = currentUpgrade.upgradeDesc;
-	}
+        currentUpgrade.gameObject.GetComponent<Button>().enabled = false; // We don't want the upgrade button prefab usable here
 
-	public void CancelChoice()
-	{
-		Destroy(currentUpgrade.gameObject);
-		currentUpgrade = null;
-		gameObject.SetActive(false);
-	}
+        detailText.text = currentUpgrade.upgradeDesc;
+    }
 
-	public void ConfirmChoice()
-	{
-		currentUpgrade.ApplyUpgrade(ship, shooter);
-		Destroy(currentUpgrade.gameObject);
-		currentUpgrade = null;
-		gameObject.SetActive(false);
-	}
+    public void CancelChoice() // Return to the choice of 3 upgrades
+    {
+        Destroy(currentUpgrade.gameObject);
+        currentUpgrade = null;
+        gameObject.SetActive(false);
+    }
+
+    public void ConfirmChoice() // Apply the upgrade, destroy the instantiated prefab and make the panel poof
+    {
+        currentUpgrade.ApplyUpgrade(ship, shooter);
+        Destroy(currentUpgrade.gameObject);
+        currentUpgrade = null;
+        gameObject.SetActive(false);
+    }
 }

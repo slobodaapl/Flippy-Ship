@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class DebrisSpawnable : Spawnable<DebrisSpawnable>
+public class DebrisSpawnable : Spawnable<DebrisSpawnable> // Check Spawnable
 {
     private bool isDebrisSpawned;
-    
+
     public override bool IsSpawnable()
     {
         return TimeTracker.TickDebris();

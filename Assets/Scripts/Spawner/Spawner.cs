@@ -5,15 +5,15 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public float globalSpawnCooldown = 1;
-        
-    private List<Spawnable> spawners;
     private float globalCurrentCooldown;
 
-    void Start()
+    private List<Spawnable> spawners;
+
+    private void Start()
     {
         TimeTracker.ResetAll();
         spawners = GetComponents<Spawnable>().ToList();
-        
+
         // I quickly decided to scrap this, cause Reflection is horribly buggy and hard to maintain
         // I refactored the code to work better with OOP patterns.. but I'm leaving this here to scare those who read it
 
@@ -37,8 +37,8 @@ public class Spawner : MonoBehaviour
         //     }
         // }
     }
-    
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         if (globalCurrentCooldown > 0)
         {
@@ -48,12 +48,10 @@ public class Spawner : MonoBehaviour
 
         var spawnable = spawners.Where(x => x.isActiveAndEnabled).Shuffle().ToList();
         foreach (var spawnableinst in spawnable)
-        {
             if (spawnableinst.Spawn())
             {
                 globalCurrentCooldown = globalSpawnCooldown;
                 return;
             }
-        }
     }
 }

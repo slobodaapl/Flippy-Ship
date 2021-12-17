@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7391728221924095759}
   - component: {fileID: 4394523850558988697}
-  - component: {fileID: -2050629666856407249}
-  - component: {fileID: -2290544560580492305}
+  - component: {fileID: 4526130388185257888}
   m_Layer: 0
   m_Name: rope
   m_TagString: Untagged
@@ -84,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-2050629666856407249
+--- !u!114 &4526130388185257888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,24 +95,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233de978c58f6904bb81952f862421d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &-2290544560580492305
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3838514781753168725}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 6

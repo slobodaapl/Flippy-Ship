@@ -1,29 +1,29 @@
 ﻿using UnityEngine;
 
-public class BaseShip : Impactable<EnemySpawnable>
+public class BaseShip : Impactable<EnemySpawnable> // Base enemy ship
 {
-    public EnemyShipType type;
-    public GameObject projectile;
+    public EnemyShipType type; // Type of the ship (RED or BLUE.. I removed GREEN cause its concept didn't work gameplay-wise)
+    public GameObject projectile; // The projectile to use 
     public float shotCooldown = 0.75f; //Time between shots
-    
+    protected float currentCooldown; // Cooldown between shots left
+    protected bool isLeaving; // Whether it's now leaving the screen
+
     protected bool isVisible;
-    protected bool isLeaving;
-    protected float xOffset;
-    protected float currentCooldown;
 
     private PlayerShip ship;
-    
+    protected float xOffset;
+
     protected virtual void Start()
     {
         ship = GameObject.FindWithTag("Player").GetComponent<PlayerShip>();
-        xOffset = -GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        xOffset = -GetComponent<SpriteRenderer>().bounds.size.x / 2; // Offset for the projectiles, to shoot from nose
     }
-    
+
     protected virtual void FixedUpdate()
     {
         var pos = rgbd.position;
 
-        if (!isVisible)
+        if (!isVisible) // If it's not visible, move into the screen until it is, towards the middle
         {
             rgbd.MovePosition(pos - new Vector2(0, Mathf.Sign(pos.y) * Time.fixedDeltaTime * defaultUnitSpeed));
             return;
@@ -42,13 +42,11 @@ public class BaseShip : Impactable<EnemySpawnable>
             if (rgbd.position.x <= 0)
                 isLeaving = true;
         }
-        
+
         // After it gets to mid-screen, leave. Hastily.
         if (isLeaving)
-        {
             rgbd.MovePosition(pos + Time.fixedDeltaTime * defaultUnitSpeed *
                 new Vector2(-1, Mathf.Sign(rgbd.position.y) * 10));
-        }
     }
 
     private void OnBecameVisible()

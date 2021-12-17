@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class HealthUpgrade : GenericUpgrade
 {
     public override bool CheckValid(PlayerShip ship, PlayerShooter shooter)

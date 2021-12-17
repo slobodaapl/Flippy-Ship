@@ -2,8 +2,9 @@
 
 public class DarkMine : Impactable<MineSpawnable>
 {
-    void FixedUpdate()
+    private void FixedUpdate() // Just moves slowly to the left in groups
     {
-        rgbd.MovePosition(rgbd.position + new Vector2(-Time.fixedDeltaTime * defaultUnitSpeed * TimeTracker.GetMoveMultiplier(), 0));
+        rgbd.MovePosition(rgbd.position +
+                          new Vector2(-Time.fixedDeltaTime * defaultUnitSpeed * TimeTracker.GetMoveMultiplier(), 0));
     }
 }

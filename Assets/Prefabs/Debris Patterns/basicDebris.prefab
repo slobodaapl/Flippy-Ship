@@ -153,4 +153,6 @@ MonoBehaviour:
   defaultUnitSpeed: 4.7
   isDestroyedOnImpact: 1
   health: 3
+  destructionPointWorth: 1
   ropePrefab: {fileID: 3838514781753168725, guid: a7e4949b29f28a345be3255cf1714a05, type: 3}
+  clickPrefab: {fileID: 2694543909292756847, guid: 791b163098b860e458574b260782928c, type: 3}

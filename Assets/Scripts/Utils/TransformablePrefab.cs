@@ -9,13 +9,13 @@ public struct FlippedDirs
     public bool flipY;
 }
 
-public class TransformablePrefab : MonoBehaviour
+public class TransformablePrefab : MonoBehaviour // Makes it possible to generate mine groups upside down or mirrored on y axis, randomly
 {
     public FlippedDirs flipDirs;
     public float rotateAngle;
     public float floatChance = 0.5f;
 
-    void Start()
+    private void Start()
     {
         if (Random.Range(0, 1) <= floatChance)
         {

@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class WallSpawnable : Spawnable<WallSpawnable>
+public class WallSpawnable : Spawnable<WallSpawnable> // Check Spawnable
 {
-
     public override bool IsSpawnable()
     {
         return TimeTracker.TickPillar();
@@ -24,5 +23,4 @@ public class WallSpawnable : Spawnable<WallSpawnable>
     {
         // No constraints needed
     }
-
 }

@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public abstract class PlayerObserver : MonoBehaviour
+public abstract class PlayerObserver : MonoBehaviour // Generic PlayerObserver. I only used HealthChanged for now
 {
     protected PlayerShip player;
-    
-    public abstract void HealthChanged(bool damage);
 
-    void Awake()
+    private void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerShip>();
     }
+
+    public abstract void HealthChanged(bool damage);
 }
