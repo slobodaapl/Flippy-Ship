@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PauseController : MonoBehaviour
     public GameObject resumeButton;
     public GameObject goText;
     public GameObject pauseButton;
+    public GameObject score;
+    public GameObject hiScore;
 
     private void Update() // Esc to pause only for Desktops. Won't be a thing in android. Not important functionality
     {
@@ -35,11 +38,26 @@ public class PauseController : MonoBehaviour
         Time.timeScale = IsPaused ? 0f : 1f;
     }
 
-    public void LoseGame() // Show pausepanel without resume, behind which is hiding 'Game Over'
+    public void LoseGame() // Show pausepanel without resume, behind which is hiding 'Game Over', and update best score
     {
         Pause();
         pausePanel.SetActive(true);
         resumeButton.SetActive(false);
+
+
+        var pointCtrl = GetComponent<PointController>();
+        score.GetComponent<Text>().text = $"Current score\n{pointCtrl.GetScore()}";
+        
+        if (PersistenceController.bestScore < pointCtrl.GetScore())
+        {
+            PersistenceController.bestScore = pointCtrl.GetScore();
+            PersistenceController.Save();
+            hiScore.GetComponent<Text>().text = $"Best Score\n{(ulong)pointCtrl.GetScore()}";
+        }
+        else
+        {
+            hiScore.GetComponent<Text>().text = $"Best Score\n{(ulong) PersistenceController.bestScore}";
+        }
     }
 
     public void UnsetDeath() // When we restart
