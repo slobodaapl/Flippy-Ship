@@ -1,1 +1,1 @@
-Flippy Ship
+Flippy Ship is a simplistic 2D game developed in Unity with C# that builds upon core ideas of Flippy Ship but transforms it into an entirely new and fresh experience with unique controls and aspects. It is merely a prototype/proof of concept but it is playable.
